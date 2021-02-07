@@ -15,7 +15,7 @@
         <div class="box-body">
             @include('dashboard.partials._errors')
             <!-- form start -->
-            <form action="{{route('dashboard.users.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('dashboard.post-add-user')}}" method="POST" enctype="multipart/form-data">
 
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
@@ -38,7 +38,11 @@
 
                     <div class="form-group">
                         <label for="userimage">User Image</label>
-                        <input type="file" class="form-control" name="image" >
+                        <input type="file" class="form-control image" name="image" >
+                    </div>
+
+                    <div class="form-group">
+                        <img src="{{ url('storage/uploads/images/users/default.jpg') }}" class="img-thumbnail imag-preview" style="width: 100px; height:100px" alt="">                    
                     </div>
                
                     <div class="form-group">

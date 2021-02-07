@@ -11,7 +11,7 @@
         <!-- Ionicons -->
         <link href="{{asset('assets/css/ionicons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- Morris chart -->
-        <link href="{{asset('assets/css/morris/morris.css')}}" rel="stylesheet" type="text/css" />
+        {{-- <link href="{{asset('assets/css/morris/morris.css')}}" rel="stylesheet" type="text/css" /> --}}
         <!-- jvectormap -->
         <link href="{{asset('assets/css/jvectormap/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet" type="text/css" />
         <!-- fullCalendar -->
@@ -60,8 +60,8 @@
         <!-- Bootstrap -->
         <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
         <!-- Morris.js charts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="{{asset('assets/js/plugins/morris/morris.min.js')}}" type="text/javascript"></script>
+        {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="{{asset('assets/js/plugins/morris/morris.min.js')}}" type="text/javascript"></script> --}}
         <!-- Sparkline -->
         <script src="{{asset('assets/js/plugins/sparkline/jquery.sparkline.min.js')}}" type="text/javascript"></script>
         <!-- jvectormap -->
@@ -88,18 +88,18 @@
         <script src="{{asset('assets/js/noty.min.js')}}" type="text/javascript"></script>
 
         <script>
-            $('.delete').on('click', function(e) {
+            // Delete Confirmation
+            $('.delete').click( function(e) {
 
-                var self = $(this);
+                var that = $(this);
                 e.preventDefault();
-
                 var n = new Noty({
                     text: 'Are you sure you want to delete this?',
                     killer: true,
                     type: 'warning',
                     buttons: [
                         Noty.button('Yes', 'btn btn-success mr-2', function() {
-                            self.closest('form').submit();
+                            that.closest('form').submit();
                         }),
 
                         Noty.button('No', 'btn btn-primary mr-2', function() {
@@ -113,6 +113,20 @@
                 aquiringMessage.classList.add('alert', 'alert-danger');
                 aquiringMessage.style.padding = '10px';
                 aquiringMessage.querySelector('.btn-primary').style.marginLeft = '10px';
+            });
+
+            // Preview Image
+            $(".image").change(function() {
+                
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        $('.imag-preview').attr('src', e.target.result);
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]); // convert to base64 string
+                }
             });
         </script>
 
