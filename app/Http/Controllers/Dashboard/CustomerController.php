@@ -18,27 +18,31 @@ class CustomerController extends Controller
     }
 
     public function postAddCustomer(Request $request) {
-
         $rules = [
-            'customer_id' => 'required',
-            'last_name' => 'required',
             'english_name' => 'required',
             'local_name' => 'required',
             'birth_date' => 'required',
             'national_id' => 'required',
-            'age' => 'required',
             'address' => 'required',
-            'notes' => 'required',
-            'dial_code' => 'required',
             'mobile_number' => 'required',
             'email' => 'required',
-            'receive_nots' => 'required',
             'office_number' => 'required',
 
         ];
 
+        $messages = [
+            'english_name.required' => 'Please enter the last name',
+            'local_name.required' => 'Please enter the local name',
+            'birth_date.required'  => 'Please enter the birth date',
+            'national_id.required' => 'Please enter the national id ',
+            'address.required' => 'Please enter the address',
+            'mobile_number.required' => 'Please enter the mobile number',
+            'email.required' => 'Please enter the email',
+            'office_number.required' => 'Please enter the office number',
+        ];
 
-        $request->validate($rules);
+
+        $request->validate($rules, $messages);
 
         $customer = new Customer();
         $customer->customer_id = $request->customer_id;
@@ -60,7 +64,9 @@ class CustomerController extends Controller
         $customer->office_number = $request->office_number;
         $customer->notes = $request->notes;
         $customer->mobile_number = $request->mobile_number;
-        $customer->moftah_club = $request->points;
+        if($request->points) {
+            $customer->moftah_club = 1;
+        }
         $customer->save();
 
         session()->flash('success', 'Customer Added Successfully!');

@@ -105,7 +105,7 @@ class UsersController extends Controller
             'permissions.required' => 'Please choose at least one permission for this admin',
         ];
 
-        $request->validate($rules);
+        $request->validate($rules, $messages);
 
         $request_data = $request->except(['permissions', 'image']);
 

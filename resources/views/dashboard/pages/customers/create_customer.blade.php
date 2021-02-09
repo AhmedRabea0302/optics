@@ -36,7 +36,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="checkbox" class="form-control flat-red" name="points" >
+                                <input type="checkbox" class="form-control" name="points" >
                                 <label for="lastname"> Gain Points</label>
                             </div>
                         </div>
@@ -85,12 +85,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label for="birth date">Birth Date</label>
-                            <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" name="birth_date" value="{{ old('birth_date') }}">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                            </div>
+                            <input class="form-control" style="font-family: sans-serif" type="date" name="birth_date"  value="{{ old('birth_date') }}">
                         </div>
 
                         <div class="col-md-3">
@@ -315,7 +310,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="age"> Age</label>
-                                <input type="text" class="form-control" name="age" {{ old('age') }}>
+                                <input type="text" class="form-control" name="age" {{ old('age') }} readonly>
                             </div>
                         </div>
                     </div>
@@ -692,8 +687,22 @@
                 radioClass: 'iradio_flat-red'
             });
 
-            // $('.datepicker').datepicker();
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            let yyyy = today.getFullYear();
 
+            today = new Date(yyyy + '-' + mm + '-' + dd);
+            console.log(today);
+
+            
+            let date = document.querySelector('input[name="birth_date"]');
+            let ageInput = document.querySelector('input[name="age"]')
+            date.addEventListener('change', e => {
+                birthdate = new Date(date.value);
+                let years = parseInt((today.getTime() - birthdate.getTime())/(60*60*24*365)).toString().substring(0,2);
+                ageInput.value = years;
+            });
         </script>
 
 

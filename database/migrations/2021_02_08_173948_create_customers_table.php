@@ -36,7 +36,7 @@ class CreateCustomersTable extends Migration
             $table->string('office_number');
             $table->float('total_spent')->default(0);
             $table->integer('total_points')->default(0);
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->boolean('moftah_club')->default(0);
             $table->timestamps();
         });
