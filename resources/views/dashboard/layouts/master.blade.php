@@ -87,6 +87,8 @@
         <!-- NOTY -->
         <script src="{{asset('assets/js/noty.min.js')}}" type="text/javascript"></script>
 
+        @yield('scripts')
+
         <script>
             // Delete Confirmation
             $('.delete').click( function(e) {

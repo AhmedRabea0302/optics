@@ -12,4 +12,9 @@
         Route::post('update-user/{id}', 'UsersController@postUpdateUser')->name('post-update-user');
 
         Route::get('delete-admin/{id}' ,'UsersController@deleteAdmin')->name('delete-admin');
+
+        // Customers Routes
+        Route::get('all-customers' ,'CustomerController@index')->name('get-all-customers');
+        Route::get('add-customer' ,'CustomerController@getAddCustomer')->name('get-add-customer');
+        Route::post('add-customer' ,'CustomerController@postAddCustomer')->name('post-add-customer');
     });

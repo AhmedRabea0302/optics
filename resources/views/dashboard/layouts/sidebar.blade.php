@@ -30,6 +30,13 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
+
+            <li>
+                <a href="{{route('dashboard.get-add-customer')}}">
+                    <i class="fa fa-users"></i> <span>Customers</span> <small class="badge pull-right bg-green">new</small>
+                </a>
+            </li>
+
             @if(auth()->user()->hasPermission('read_users'))
                 <li>
                     <a href="{{route('dashboard.get-all-users')}}">
