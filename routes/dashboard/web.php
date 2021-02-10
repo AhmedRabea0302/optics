@@ -17,4 +17,9 @@
         Route::get('all-customers' ,'CustomerController@index')->name('get-all-customers');
         Route::get('add-customer' ,'CustomerController@getAddCustomer')->name('get-add-customer');
         Route::post('add-customer' ,'CustomerController@postAddCustomer')->name('post-add-customer');
+
+        Route::get('update-customer/{id}' ,'CustomerController@getUpdateCustomer')->name('get-update-customer');
+        Route::post('update-customer/{id}' ,'CustomerController@postUpdateCustomer')->name('post-update-customer');
+        Route::get('delete-customer/{id}' ,'CustomerController@deleteCustomer')->name('delete-customer');
+
     });

@@ -8,7 +8,8 @@ use App\Customer;
 class CustomerController extends Controller
 {
     public function index() {
-
+        $customers = Customer::latest()->paginate(2);
+        return view('dashboard.pages.customers.all-customers', compact('customers'));
     }
 
     public function getAddCustomer(Request $request) {
@@ -70,6 +71,15 @@ class CustomerController extends Controller
         $customer->save();
 
         session()->flash('success', 'Customer Added Successfully!');
-        return redirect()->route('dashboard.get-all-users');
+        return redirect()->route('dashboard.get-all-customers');
+    }
+
+    public function getUpdateCustomer(Request $request, $id) {
+        $customer = Customer::find($id);
+        return view('dashboard.pages.customers.update_customer', compact('customer'));
+    }
+
+    public function postUpdateCustomer(Request $request, $id) {
+        
     }
 }

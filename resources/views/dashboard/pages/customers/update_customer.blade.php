@@ -3,7 +3,7 @@
     <section class="content-header">
         <h1>
             Dashboard
-            <small>Create Customer</small>
+            <small>Update Customer</small>
         </h1>
     </section>
 
@@ -11,7 +11,7 @@
         <div class="box-header">
             <h3 class="box-title">Basic Information</h3>
         </div><!-- /.box-header -->
-        <form action="{{route('dashboard.post-update-customer')}}" method="POST">
+        <form action="{{route('dashboard.post-add-customer')}}" method="POST">
 
             <div class="box-body">
                 @include('dashboard.partials._errors')
@@ -24,7 +24,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="firstname">Customer ID</label>
-                                <input type="text" class="form-control" name="customer_id" style="font-weight: bold " value="{{ $customerID }}" readonly>
+                                <input type="text" class="form-control" name="customer_id" style="font-weight: bold " value="{{ $customer->customer_id }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -36,7 +36,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="checkbox" class="form-control" name="points" >
+                                <input type="checkbox" class="form-control" name="points" {{ $customer->moftah_club == 1 ? 'checked' : '' }}>
                                 <label for="lastname"> Gain Points</label>
                             </div>
                         </div>
@@ -49,25 +49,25 @@
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <select name="title" id="title" class="form-control">
-                                    <option value="Dr">Dr.</option>
-                                    <option value="Her Highness">Her Highness</option>
-                                    <option value="Mr">Mr.</option>
-                                    <option value="Prince">Prince</option>
-                                    <option value="Sheikh">Sheikh</option>
+                                    <option value="Dr" {{ $customer->title == 'Dr' ? 'selected' : '' }}>Dr.</option>
+                                    <option value="Her Highness" {{ $customer->title == 'Her Highness' ? 'selected' : '' }}>Her Highness</option>
+                                    <option value="Mr" {{ $customer->title == 'Mr' ? 'selected' : '' }}>Mr.</option>
+                                    <option value="Prince" {{ $customer->title == 'Prince' ? 'selected' : '' }}>Prince</option>
+                                    <option value="Sheikh" {{ $customer->title == 'Sheikh' ? 'selected' : '' }}>Sheikh</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="lastname">English Name</label>
-                                <input type="text" class="form-control" name="english_name" value="{{ old('english_name') }}">
+                                <input type="text" class="form-control" name="english_name" value="{{ $customer->english_name }}">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="lastname"> Local Name</label>
-                                <input type="text" class="form-control" name="local_name" value="{{ old('local_name') }}">
+                                <input type="text" class="form-control" name="local_name" value="{{  $customer->local_name }}">
                             </div>
                         </div>
 
@@ -75,8 +75,8 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Gender</label>
                                 <select name="gender" id="gender" class="form-control">
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                    <option value="Male" {{ $customer->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                    <option value="Female" {{ $customer->gender == 'Female' ? 'selected' : '' }}>Female</option>
                                 </select>                            
                             </div>
                         </div>
@@ -85,15 +85,15 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label for="birth date">Birth Date</label>
-                            <input class="form-control" style="font-family: sans-serif" type="date" name="birth_date"  value="{{ old('birth_date') }}">
+                            <input class="form-control" style="font-family: sans-serif" type="date" name="birth_date"  value="{{ $customer->birth_date }}">
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="preferedlang">Prefered Language</label>
                                 <select name="prefered_language" id="prefered_language" class="form-control">
-                                    <option value="English">English</option>
-                                    <option value="Arabic">Arabic</option>
+                                    <option value="English" {{ $customer->prefered_language == 'English' ? 'selected' : '' }}>English</option>
+                                    <option value="Arabic" {{ $customer->prefered_language == 'Arabic' ? 'selected' : '' }}>Arabic</option>
                                 </select>                            
                             </div>
                         </div>
@@ -301,7 +301,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="lastname"> National ID</label>
-                                <input type="text" class="form-control" name="national_id" {{ old('national_id') }}>
+                                <input type="text" class="form-control" name="national_id" value="{{ $customer->national_id }}">
                             </div>
                         </div>
                     </div>
@@ -310,7 +310,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="age"> Age</label>
-                                <input type="text" class="form-control" name="age" {{ old('age') }} readonly>
+                                <input type="text" class="form-control" name="age" value="{{ $customer->age }}" readonly>
                             </div>
                         </div>
                     </div>

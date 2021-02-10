@@ -25,22 +25,27 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="active">
+            <li class="{{ Request::route()->getName() ==  'dashboard.index' ? 'active' : '' }}">
                 <a href="{{route('dashboard.index')}}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{route('dashboard.get-add-customer')}}">
-                    <i class="fa fa-users"></i> <span>Customers</span> <small class="badge pull-right bg-green">new</small>
+            <li class="treeview {{ Request::route()->getName() == 'dashboard.get-all-customers' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-users"></i>
+                    <span>Customers Management</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Custommers List</a></li>
+                </ul>
             </li>
 
             @if(auth()->user()->hasPermission('read_users'))
-                <li>
+                <li class="{{ Request::route()->getName() == 'dashboard.get-all-users' ? 'active' : '' }}">
                     <a href="{{route('dashboard.get-all-users')}}">
-                        <i class="fa fa-user"></i> <span>Users</span> <small class="badge pull-right bg-green">new</small>
+                        <i class="fa fa-user"></i> <span>Users</span>
                     </a>
                 </li>
             @endif
