@@ -10,6 +10,11 @@
 
     <div class="box box-primary">
         <div class="box-header">
+             <!-- tools box -->
+             <div class="pull-right box-tools">                                        
+                <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+            </div>
+            <i class="fa fa-user"></i>
             <h3 class="box-title">Users <small class="badge bg-green">{{$users->total()}}</small></h3>
             
             <form action="{{route('dashboard.get-all-users')}}" method="GET">

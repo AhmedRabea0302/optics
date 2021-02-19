@@ -22,4 +22,19 @@
         Route::post('update-customer/{id}' ,'CustomerController@postUpdateCustomer')->name('post-update-customer');
         Route::get('delete-customer/{id}' ,'CustomerController@deleteCustomer')->name('delete-customer');
 
+        // Categories Routes
+        Route::get('all-categories/' ,'CategoryController@index')->name('get-all-categories');
+        Route::post('add-category/' ,'CategoryController@addCategory')->name('add-category');
+        Route::post('update-category/' ,'CategoryController@updateCategory')->name('update-category');
+
+        // Branches Routes
+        Route::get('all-branches/' ,'BranchController@index')->name('get-all-branches');
+        Route::post('add-branche/' ,'BranchController@addBranch')->name('add-branche');
+        Route::post('update-branche/' ,'BranchController@updateBranch')->name('update-branche');
+ 
+        // Branches Routes
+        Route::get('all-products/' ,'ProductController@index')->name('get-all-products');
+        Route::get('add-product/' ,'ProductController@getAddProduct')->name('get-add-product');
+        Route::post('add-product/' ,'ProductController@postAddProduct')->name('post-add-product');
+        Route::post('update-product/' ,'ProductController@updateProduct')->name('update-product');
     });

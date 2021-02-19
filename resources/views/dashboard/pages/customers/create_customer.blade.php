@@ -3,7 +3,7 @@
     <section class="content-header">
         <h1>
             Dashboard
-            <small>Create Customer</small>
+            <small>Add Customer</small>
         </h1>
     </section>
 
@@ -11,7 +11,7 @@
         <div class="box-header">
             <h3 class="box-title">Basic Information</h3>
         </div><!-- /.box-header -->
-        <form action="{{route('dashboard.post-update-customer')}}" method="POST">
+        <form action="{{route('dashboard.post-add-customer')}}" method="POST">
 
             <div class="box-body">
                 @include('dashboard.partials._errors')

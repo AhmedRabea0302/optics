@@ -34,12 +34,30 @@
             <li class="treeview {{ Request::route()->getName() == 'dashboard.get-all-customers' ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-users"></i>
-                    <span>Customers Management</span>
+                    <span>Customers</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Custommers List</a></li>
                 </ul>
+            </li>
+
+            <li class="{{ Request::route()->getName() == 'dashboard.get-all-products' ? 'active' : '' }}">
+                <a href="{{route('dashboard.get-all-products')}}">
+                    <i class="fa  fa-bar-chart-o"></i> <span>Products</span>
+                </a>
+            </li>
+
+            <li class="{{ Request::route()->getName() == 'dashboard.get-all-categories' ? 'active' : '' }}">
+                <a href="{{route('dashboard.get-all-categories')}}">
+                    <i class="fa fa-tasks"></i> <span>Categories</span>
+                </a>
+            </li>
+
+            <li class="{{ Request::route()->getName() == 'dashboard.get-all-branches' ? 'active' : '' }}">
+                <a href="{{route('dashboard.get-all-branches')}}">
+                    <i class="fa fa-sitemap"></i> <span>Branches</span>
+                </a>
             </li>
 
             @if(auth()->user()->hasPermission('read_users'))
