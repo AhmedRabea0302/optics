@@ -50,7 +50,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('dashboard.get-stock-overview')}}"><i class="fa fa-angle-double-right"></i> Stock Overview</a></li>
-                    <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Item Inquiry</a></li>
+                    <li><a ><i class="fa fa-angle-double-right"></i> Item Inquiry</a></li>
                 </ul>
             </li>
 

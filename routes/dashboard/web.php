@@ -20,7 +20,7 @@
 
         // Stock Overview Routes
         Route::get('stock-overview/' ,'StockOverview@index')->name('get-stock-overview');
-        Route::post('add-model/' ,'StockOverview@addModel')->name('post-add-model');
+        Route::post('search-item/' ,'StockOverview@searchItem')->name('search-item');
         Route::post('update-model/' ,'StockOverview@updateModel')->name('update-model');
 
         Route::get('update-customer/{id}' ,'CustomerController@getUpdateCustomer')->name('get-update-customer');
