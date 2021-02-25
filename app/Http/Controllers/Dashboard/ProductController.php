@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Branch;
+use App\Brand;
+use App\glassModel;
 use App\Product;
 use Validator;
 
@@ -24,7 +26,9 @@ class ProductController extends Controller
         $productID = mt_rand(10000000, 99999999) . $product_count;
         $branches = Branch::all();
         $categories = Category::all();
-        return view('dashboard.pages.products.create', compact(['productID', 'branches', 'categories']));
+        $brands = Brand::all();
+        $models = glassModel::all();
+        return view('dashboard.pages.products.create', compact(['productID', 'branches', 'categories', 'brands', 'models']));
     }
 
     public function postAddProduct(Request $request) {
@@ -49,6 +53,8 @@ class ProductController extends Controller
         $product->product_id  = $request->product_id;
         $product->describtion = $request->description;
         $product->category_id = $request->category;
+        $product->brand_id    = $request->brand;
+        $product->model_id    = $request->model;
         $product->branch_id = $request->branch;
         $product->price = $request->price;
         $product->tax = $request->tax;

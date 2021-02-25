@@ -21,14 +21,14 @@
                     {{ method_field('POST') }}
                     
                     <div class="row" style="display: flex; align-items:center" >
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="firstname">Product ID</label>
                                 <input type="text" class="form-control" name="product_id" style="font-weight: bold " value="{{ $productID }}" readonly>
                             </div>
                         </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Category</label>
                                 <select name="category" id="category" class="form-control">
@@ -39,7 +39,31 @@
                             </div>
                         </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Brand</label>
+                                <select name="brand" id="brand" class="form-control">
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>      
+                                    @endforeach
+                                </select>                            
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Model</label>
+                                <select name="model" id="model" class="form-control">
+                                    @foreach ($models as $model)
+                                        <option value="{{ $model->id }}">{{ $model->model_id }}</option>      
+                                    @endforeach
+                                </select>                            
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Branch</label>
                                 <select name="branch" id="branch" class="form-control">
@@ -50,37 +74,38 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lastname">Amount</label>
+                                <input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <!-- =============================== -->
 
                     <div class="row" style="display: flex; align-items:center" >
             
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="lastname">Description</label>
                                 <input type="text" class="form-control" name="description" value="{{ old('descriptipn') }}">
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="lastname">Price</label>
                                 <input type="text" class="form-control" name="price" value="{{ old('price') }}">
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="lastname">Tax</label>
                                 <input type="text" class="form-control" name="tax" value="{{ old('tax') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="lastname">Amount</label>
-                                <input type="text" class="form-control" name="amount" value="{{ old('amount') }}">
                             </div>
                         </div>
 

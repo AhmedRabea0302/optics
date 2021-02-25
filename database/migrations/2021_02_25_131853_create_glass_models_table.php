@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBranchesTable extends Migration
+class CreateGlassModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateBranchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('glass_models', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('branch_id');
-            $table->string('branch_name');
+            $table->integer('category_id');
+            $table->integer('brand_id');
+            $table->string('model_id');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateBranchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branches');
+        Schema::dropIfExists('glass_models');
     }
 }

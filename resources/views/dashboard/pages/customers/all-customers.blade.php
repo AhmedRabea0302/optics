@@ -4,7 +4,7 @@
     <section class="content-header">
         <h1>
             Dashboard
-            <small>Users</small>
+            <small>Customers</small>
         </h1>
     </section>
 
@@ -22,7 +22,7 @@
 
                 <div class="row" style="margin-top: 6px">
                     <div class="col-md-4">
-                        <input type="text" name="search" class="form-control" placeholder="Search Users" value="{{request()->search}}">
+                        <input type="text" name="search" class="form-control" placeholder="Search Customers" value="{{request()->search}}">
                     </div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-primary  btn-flat"><i class="fa fa-search"></i> Search</button>

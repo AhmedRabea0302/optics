@@ -24,6 +24,8 @@
         <link href="{{asset('assets/css/noty.css')}}" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="{{asset('assets/css/AdminLTE.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/css/styles.css')}}" rel="stylesheet" type="text/css" />
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

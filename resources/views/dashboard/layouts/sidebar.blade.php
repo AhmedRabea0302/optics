@@ -40,6 +40,18 @@
                 <ul class="treeview-menu">
                     <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Custommers List</a></li>
                 </ul>
+            </li> 
+
+            <li class="treeview {{ Request::route()->getName() == '' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-stack-overflow"></i>
+                    <span>Inquiry</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('dashboard.get-stock-overview')}}"><i class="fa fa-angle-double-right"></i> Stock Overview</a></li>
+                    <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Item Inquiry</a></li>
+                </ul>
             </li>
 
             <li class="{{ Request::route()->getName() == 'dashboard.get-all-products' ? 'active' : '' }}">
@@ -51,6 +63,18 @@
             <li class="{{ Request::route()->getName() == 'dashboard.get-all-categories' ? 'active' : '' }}">
                 <a href="{{route('dashboard.get-all-categories')}}">
                     <i class="fa fa-tasks"></i> <span>Categories</span>
+                </a>
+            </li>
+
+            <li class="{{ Request::route()->getName() == 'dashboard.get-all-brands' ? 'active' : '' }}">
+                <a href="{{route('dashboard.get-all-brands')}}">
+                    <i class="fa fa-trello"></i> <span>Brands</span>
+                </a>
+            </li>
+
+            <li class="{{ Request::route()->getName() == 'dashboard.get-all-models' ? 'active' : '' }}">
+                <a href="{{route('dashboard.get-all-models')}}">
+                    <i class="fa fa-check-square-o"></i> <span>Models</span>
                 </a>
             </li>
 
