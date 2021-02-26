@@ -195,7 +195,7 @@
                         </div>
 
                         <!-- Right Panel -->
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="panel panel-primary right">
                                 <!-- Default panel contents -->
                                 <div class="panel-heading">Pick Up Values</div>
@@ -204,7 +204,7 @@
                                 </div>
 
                               </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="row">
