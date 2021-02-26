@@ -17,15 +17,21 @@
         Route::get('all-customers' ,'CustomerController@index')->name('get-all-customers');
         Route::get('add-customer' ,'CustomerController@getAddCustomer')->name('get-add-customer');
         Route::post('add-customer' ,'CustomerController@postAddCustomer')->name('post-add-customer');
+        Route::get('update-customer/{id}' ,'CustomerController@getUpdateCustomer')->name('get-update-customer');
+        Route::post('update-customer/{id}' ,'CustomerController@postUpdateCustomer')->name('post-update-customer');
+        Route::get('delete-customer/{id}' ,'CustomerController@deleteCustomer')->name('delete-customer');
 
         // Stock Overview Routes
         Route::get('stock-overview/' ,'StockOverview@index')->name('get-stock-overview');
         Route::post('search-item/' ,'StockOverview@searchItem')->name('search-item');
-        Route::post('update-model/' ,'StockOverview@updateModel')->name('update-model');
+            // Filtering Routes
+            Route::post('filter-products-by-cat-id/' ,'StockOverview@filterByCatId')->name('filter-products-cat-id');
+            Route::post('filter-products-by-brand-id/' ,'StockOverview@filterByBrandId')->name('filter-products-brand-id');
+            Route::post('filter-products-by-model-id/' ,'StockOverview@filterByModelId')->name('filter-products-model-id');
 
-        Route::get('update-customer/{id}' ,'CustomerController@getUpdateCustomer')->name('get-update-customer');
-        Route::post('update-customer/{id}' ,'CustomerController@postUpdateCustomer')->name('post-update-customer');
-        Route::get('delete-customer/{id}' ,'CustomerController@deleteCustomer')->name('delete-customer');
+            Route::post('filter-brands-bycatid/' ,'StockOverview@filterBrandsByCatId')->name('filter-brands-by-category-id');
+            Route::post('filter-brands-bybrandid/' ,'StockOverview@filterModelsByBrandId')->name('filter-models-by-brand-id');
+        
 
         // Categories Routes
         Route::get('all-categories/' ,'CategoryController@index')->name('get-all-categories');
@@ -52,4 +58,6 @@
         Route::get('all-models/' ,'GlassModelController@index')->name('get-all-models');
         Route::post('add-model/' ,'GlassModelController@addModel')->name('post-add-model');
         Route::post('update-model/' ,'GlassModelController@updateModel')->name('update-model');
+
+        
     });

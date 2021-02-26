@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Branch;
+use App\Category;
+use App\glassModel;
+use App\Brand;
 
 class StockOverview extends Controller
 {
     public function index() {
-        return view('dashboard.pages.stock.index');
+        $categories = Category::all();
+        $brands = Brand::all();
+        $models = glassModel::all();
+
+        return view('dashboard.pages.stock.index', compact(['categories', 'brands', 'models']));
     }
 
     public function searchItem(Request $request) {
@@ -21,6 +28,51 @@ class StockOverview extends Controller
             return response()->json($product);
         } else {
             return response()->json(['message' => 'No Item Found With this ID!']);
+        }
+    }
+
+    // Filter Products By Category ID
+    public function filterByCatId(Request $request) {
+        $products = Product::where('category_id', $request->category_id)->get();
+
+        if($products) {
+            return response()->json($products);
+        }
+    }
+
+    // Filter Products By Brand ID
+    public function filterByBrandId(Request $request) {
+        $products = Product::where('brand_id', $request->brand_id)->get();
+
+        if($products) {
+            return response()->json($products);
+        }
+    }
+
+    // Filter Products By Model ID
+    public function filterByModelId(Request $request) {
+        $products = Product::where('model_id', $request->model_id)->get();
+
+        if($products) {
+            return response()->json($products);
+        }
+    }
+    
+    // Filter Brands by Category ID
+    public function filterBrandsByCatId(Request $request) {
+        $brands = Brand::where('category_id', $request->category_id)->get();
+
+        if($brands) {
+            return response()->json($brands);
+        }
+    }
+    
+    // Filter Models  by Brand ID
+    public function filterModelsByBrandId(Request $request) {
+        $models = glassModel::where('brand_id', $request->brand_id)->get();
+
+        if($models) {
+            return response()->json($models);
         }
     }
 }
