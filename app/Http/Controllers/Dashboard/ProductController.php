@@ -38,12 +38,16 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required',
             'tax' => 'required',
+            'color' => 'required',
+            'size'  => 'required',
         ];
 
         $messages = [
             'description.required' => 'Please enter product description',
             'price.required' => 'Please enter product Price',
             'tax.required' => 'Please enter product Tax',
+            'color.required' => 'Please enter product Color',
+            'size.required' => 'Please enter product Size',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -55,6 +59,8 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->brand_id    = $request->brand;
         $product->model_id    = $request->model;
+        $product->color = $request->color;
+        $product->size = $request->size;
         $product->branch_id = $request->branch;
         $product->price = $request->price;
         $product->tax = $request->tax;

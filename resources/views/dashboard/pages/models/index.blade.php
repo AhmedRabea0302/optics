@@ -159,7 +159,7 @@
 
 
                 <label for="cat name">Model ID</label>
-                <input type="text" name="model_id" disabled class="form-control add-modal-id">
+                <input type="text" name="model_id" class="form-control add-modal-id">
             </div>
 
             <div class="modal-footer form-action">
@@ -296,7 +296,6 @@
         $('#myModal, #updateModal').on('shown.bs.modal', function () {
             $('.modal .modal-body input[name="model_id"]').focus();
             $('.update_model_id').focus();
-            $('.modal .modal-body .add-modal-id').val(Math.floor(Math.random() * 9999999));
         });
     })
 

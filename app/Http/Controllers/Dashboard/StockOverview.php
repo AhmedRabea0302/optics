@@ -57,6 +57,26 @@ class StockOverview extends Controller
             return response()->json($products);
         }
     }
+
+    
+    // Filter Products By Size
+    public function filterBySize(Request $request) {
+        $products = Product::where('size', $request->size)->get();
+
+        if($products) {
+            return response()->json($products);
+        }
+    }
+
+    // Filter Products By Color
+    public function filterByColor(Request $request) {
+        $products = Product::where('color', $request->color)->get();
+
+        if($products) {
+            return response()->json($products);
+        }
+    }
+    
     
     // Filter Brands by Category ID
     public function filterBrandsByCatId(Request $request) {

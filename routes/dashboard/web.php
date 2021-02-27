@@ -28,6 +28,8 @@
             Route::post('filter-products-by-cat-id/' ,'StockOverview@filterByCatId')->name('filter-products-cat-id');
             Route::post('filter-products-by-brand-id/' ,'StockOverview@filterByBrandId')->name('filter-products-brand-id');
             Route::post('filter-products-by-model-id/' ,'StockOverview@filterByModelId')->name('filter-products-model-id');
+            Route::post('filter-products-by-size/' ,'StockOverview@filterBySize')->name('filter-products-size');
+            Route::post('filter-products-by-color/' ,'StockOverview@filterByColor')->name('filter-products-color');
 
             Route::post('filter-brands-bycatid/' ,'StockOverview@filterBrandsByCatId')->name('filter-brands-by-category-id');
             Route::post('filter-brands-bybrandid/' ,'StockOverview@filterModelsByBrandId')->name('filter-models-by-brand-id');

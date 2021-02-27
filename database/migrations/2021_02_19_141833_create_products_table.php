@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('brand_id');
             $table->integer('model_id');
             $table->string('product_id');
+            $table->string('color');
+            $table->string('size');
             $table->string('describtion');
             $table->float('price');
             $table->float('tax');

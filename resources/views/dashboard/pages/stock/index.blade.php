@@ -52,6 +52,8 @@
 
         .panel.left .form-group label {
             margin-right: 10px;
+            width: 40px;
+            display: inline-table
         }
 
         .panel.left .btn.btn-danger {
@@ -188,6 +190,18 @@
                                         <option value=""></option>
                                     </select>
                                     <button class="btn btn-danger filter-models"><i class="fa fa-search"></i></button>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="size">Size</label>
+                                    <input type="text" name="size" id="size" class="form-control">
+                                    <button class="btn btn-danger filter-sizes"><i class="fa fa-search"></i></button>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="color">Color</label>
+                                    <input type="text" name="color" id="color" class="form-control">
+                                    <button class="btn btn-danger filter-colors"><i class="fa fa-search"></i></button>
                                   </div>
 
                                 </div>
@@ -424,6 +438,88 @@
                 });
             })
 
+            // Filter Products With Size
+            $('.filter-sizes').on('click', function(e) {
+                e.preventDefault();
+
+                let size = document.querySelector('#size').value;
+                console.log(size);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: "POST",
+                    url: '{{route("dashboard.filter-products-size")}}',
+                    data: { size: size },
+                    success: function(response) {
+                        console.log(response);
+                        table = document.querySelector('.panel-table div table tbody');
+                        document.querySelector('.panel-table div table').style.opacity = '1';
+                        table.innerHTML = '';
+                        if(response.length != 0) {
+                            document.querySelector('.no-items').style.display = 'none';
+                            response.forEach((product, index) => {
+                                let row = document.createElement('tr');
+                                row.innerHTML += `
+                                    <td>${index+1}</td>
+                                    <td>${product.describtion}</td>
+                                    <td>${product.price}</td>
+                                    <td>${product.tax}</td>
+                                    <td>${product.total}</td>
+                                `;
+                                table.appendChild(row)
+                            });
+                        } else {
+                            document.querySelector('.panel-table div table').style.opacity = '0';
+                            document.querySelector('.no-items').style.display = 'block';
+                        }
+                    }
+                });
+            })
+
+
+            // Filter Products With Size
+            $('.filter-colors').on('click', function(e) {
+                e.preventDefault();
+
+                let color = document.querySelector('#color').value;
+                console.log(color);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: "POST",
+                    url: '{{route("dashboard.filter-products-color")}}',
+                    data: { color: color },
+                    success: function(response) {
+                        console.log(response);
+                        table = document.querySelector('.panel-table div table tbody');
+                        document.querySelector('.panel-table div table').style.opacity = '1';
+                        table.innerHTML = '';
+                        if(response.length != 0) {
+                            document.querySelector('.no-items').style.display = 'none';
+                            response.forEach((product, index) => {
+                                let row = document.createElement('tr');
+                                row.innerHTML += `
+                                    <td>${index+1}</td>
+                                    <td>${product.describtion}</td>
+                                    <td>${product.price}</td>
+                                    <td>${product.tax}</td>
+                                    <td>${product.total}</td>
+                                `;
+                                table.appendChild(row)
+                            });
+                        } else {
+                            document.querySelector('.panel-table div table').style.opacity = '0';
+                            document.querySelector('.no-items').style.display = 'block';
+                        }
+                    }
+                });
+            })
+
+/* ==================================================================================================
+==================================== Set Select Boxes ===============================================
+================================================================================================== */
 
             // Set the brands after choosing the category ID
             let category_ID = document.querySelector('#category_id');
