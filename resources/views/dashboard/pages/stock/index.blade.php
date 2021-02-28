@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('content')
-    
+
     <style>
         .bordered-inputs {
             border: 1px solid #3c8dbc;
@@ -10,6 +10,7 @@
         .item-table {
             opacity: 0;
         }
+
         .modal.in .modal-dialog {
             width: 85%;
         }
@@ -27,7 +28,7 @@
             opacity: 0.75;
             transition: ease-in-out all 0.3s;
         }
-        
+
         .modal .modal-body {
             padding: 15px 15px;
         }
@@ -57,6 +58,10 @@
         }
 
         .panel.left .btn.btn-danger {
+            margin-left: 5px
+        }
+
+        .panel.left .btn.btn-success {
             margin-left: 10px
         }
 
@@ -75,23 +80,28 @@
 
     <div class="box box-primary">
         <div class="box-header">
-             <!-- tools box -->
-             <div class="pull-right box-tools">                                        
-                <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-success btn-sm pull-right" data-target="#myModal" data-toggle="modal" title="Advanced Search" style="margin-right: 5px;"><i class="fa fa-search"></i></button>
+            <!-- tools box -->
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip"
+                        title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-success btn-sm pull-right" data-target="#myModal" data-toggle="modal"
+                        title="Advanced Search" style="margin-right: 5px;"><i class="fa fa-search"></i></button>
             </div>
-            
+
             <i class="fa fa-stack-overflow"></i>
             <h3 class="box-title">Stock Overview</h3>
-            
+
             <form method="POST" id="search-item">
 
                 <div class="row" style="margin-top: 6px">
                     <div class="col-md-4">
-                        <input type="text" name="search" class="form-control" placeholder="Search Items" value="{{request()->search}}">
+                        <input type="text" name="search" class="form-control" placeholder="Search Items"
+                               value="{{request()->search}}">
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary  btn-flat"><i class="fa fa-search"></i> Search For Item</button>
+                        <button type="submit" class="btn btn-primary  btn-flat"><i class="fa fa-search"></i> Search For
+                            Item
+                        </button>
                     </div>
                 </div>
                 <div class="alert alert-danger" style="display: none; margin: 10px; width: 63%">
@@ -100,9 +110,9 @@
             </form>
 
         </div><!-- /.box-header -->
-        
+
         <div class="box-body">
-                
+
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -111,7 +121,7 @@
                             <input type="text" name="item_id" class="item_id form-control">
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -130,7 +140,7 @@
                                 <th>Description</th>
                                 <th>Stock Amount</th>
                             </tr>
-    
+
                             <tr>
                                 <td class="first-td"></td>
                                 <td class="second-td"></td>
@@ -150,14 +160,14 @@
 
             <!-- Modal content-->
             <div class="modal-content">
-                
+
                 <div class="modal-header box-item-head">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3>Advanced Search</h3>
                 </div>
-                
+
                 <div class="modal-body  box-item-content">
-                    
+
                     <div class="row">
                         <!-- Left Panel -->
                         <div class="col-md-6">
@@ -165,48 +175,65 @@
                                 <!-- Default panel contents -->
                                 <div class="panel-heading">Group</div>
                                 <div class="panel-body">
-                                  <div class="form-group">
+                                    <div class="form-group">
 
-                                    <select name="category_id" id="category_id" class="form-control">
-                                        <option value=""></option>
-                                        @foreach($categories as $cat)
-                                            <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <button class="btn btn-danger filter-categories"><i class="fa fa-search"></i></button>
-                                  </div>
+                                        <select name="category_id" id="category_id" class="form-control">
+                                            <option value=""></option>
+                                            @foreach($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button class="btn btn-success filter-categories"><i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
 
-                                  <div class="form-group">
-                                    <label for="brand">Brand</label>
-                                    <select name="brand_id" id="brand_id" disabled class="form-control modal_brand_id">
-                                        <option value=""></option>
-                                    </select>
-                                    <button class="btn btn-success filter-brands"><i class="fa fa-search"></i></button>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-close"></i></button>
-                                  </div>
+                                    <div class="form-group">
+                                        <label for="brand">Brand</label>
+                                        <select name="brand_id" id="brand_id" disabled
+                                                class="form-control modal_brand_id">
+                                            <option value=""></option>
+                                        </select>
+                                        <button class="btn btn-success filter-brands"><i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-danger filter-brands"><i class="fa fa-close"></i>
+                                        </button>
+                                        <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
 
-                                  <div class="form-group">
-                                    <label for="model">Model</label>
-                                    <select name="model_id" id="model_id" disabled class="form-control">
-                                        <option value=""></option>
-                                    </select>
-                                    <button class="btn btn-danger filter-models"><i class="fa fa-search"></i></button>
-                                  </div>
+                                    <div class="form-group">
+                                        <label for="model">Model</label>
+                                        <select name="model_id" id="model_id" disabled class="form-control">
+                                            <option value=""></option>
+                                        </select>
+                                        <button class="btn btn-success filter-models"><i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
 
-                                  <div class="form-group">
-                                    <label for="size">Size</label>
-                                    <input type="text" name="size" id="size" class="form-control">
-                                    <button class="btn btn-danger filter-sizes"><i class="fa fa-search"></i></button>
-                                  </div>
+                                    <div class="form-group">
+                                        <label for="size">Size</label>
+                                        <input type="text" name="size" id="size" class="form-control">
+                                        <button class="btn btn-success filter-sizes"><i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
 
-                                  <div class="form-group">
-                                    <label for="color">Color</label>
-                                    <input type="text" name="color" id="color" class="form-control">
-                                    <button class="btn btn-danger filter-colors"><i class="fa fa-search"></i></button>
-                                  </div>
+                                    <div class="form-group">
+                                        <label for="color">Color</label>
+                                        <input type="text" name="color" id="color" class="form-control">
+                                        <button class="btn btn-success filter-colors"><i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
-                              </div>
+                            </div>
                         </div>
 
                         <!-- Right Panel -->
@@ -227,17 +254,17 @@
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>ID#</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th>Tax</th>
-                                            <th>Total</th>
-                                        </tr>
+                                    <tr>
+                                        <th>ID#</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Tax</th>
+                                        <th>Total</th>
+                                    </tr>
                                     </thead>
-            
+
                                     <tbody>
-    
+
                                     </tbody>
                                 </table>
                             </div>
@@ -255,19 +282,19 @@
         </div>
     </div>
 
-    
+
 
     <script src="{{asset('assets/js/jquery-2.0.2.min.js')}}" type="text/javascript"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            // Search Item with ID 
-            $('#search-item').submit( function(event) {
+            // Search Item with ID
+            $('#search-item').submit(function (event) {
                 event.preventDefault();
-        
+
                 product_id = $('.box .box-header input[name="search"]').val().trim();
 
-                if(product_id == '') {
+                if (product_id == '') {
                     $('.alert-danger').css('display', 'block');
                     $('.alert-danger p').html('Please Enter Product ID!');
                 } else {
@@ -279,7 +306,7 @@
                     let first_td = document.querySelector('.first-td');
                     let second_td = document.querySelector('.second-td');
                     let third_td = document.querySelector('.third-td');
-                    
+
                     table.style.opacity = '0';
                     item_input.value = '';
                     description.innerText = '';
@@ -290,9 +317,9 @@
                         },
                         type: "POST",
                         url: '{{route("dashboard.search-item")}}',
-                        data: { product_id: product_id },
-                        success: function(response) {
-                            if(response.message == 'No Item Found With this ID!') {
+                        data: {product_id: product_id},
+                        success: function (response) {
+                            if (response.message == 'No Item Found With this ID!') {
                                 $('.success-message').css('display', 'none');
                                 $('.alert-danger').css('display', 'block');
                                 $('.alert-danger p').html('No Item Found With this ID!');
@@ -306,23 +333,23 @@
                                 second_td.innerText = response.describtion;
                                 third_td.innerText = response.amount;
 
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     item_input.classList.add('bordered-inputs');
                                     description.classList.add('bordered-inputs');
                                     table.classList.add('bordered-inputs');
                                     table.style.opacity = '1';
                                 }, 200)
                             }
-                            
+
                         },
 
                     });
                 }
-                
+
             });
 
             // Filter Products With category ID
-            $('.filter-categories').on('click', function(e) {
+            $('.filter-categories').on('click', function (e) {
                 e.preventDefault();
 
                 let cat_id = document.querySelector('#category_id').value;
@@ -333,18 +360,18 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.filter-products-cat-id")}}',
-                    data: { category_id: cat_id },
-                    success: function(response) {
+                    data: {category_id: cat_id},
+                    success: function (response) {
                         console.log(response);
                         table = document.querySelector('.panel-table div table tbody');
                         document.querySelector('.panel-table div table').style.opacity = '1';
                         table.innerHTML = '';
-                        if(response.length != 0) {
+                        if (response.length != 0) {
                             document.querySelector('.no-items').style.display = 'none';
                             response.forEach((product, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML += `
-                                    <td>${index+1}</td>
+                                    <td>${index + 1}</td>
                                     <td>${product.describtion}</td>
                                     <td>${product.price}</td>
                                     <td>${product.tax}</td>
@@ -362,7 +389,7 @@
 
 
             // Filter Products With Brand ID
-            $('.filter-brands').on('click', function(e) {
+            $('.filter-brands').on('click', function (e) {
                 e.preventDefault();
 
                 let brand_id = document.querySelector('#brand_id').value;
@@ -373,18 +400,18 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.filter-products-brand-id")}}',
-                    data: { brand_id: brand_id },
-                    success: function(response) {
+                    data: {brand_id: brand_id},
+                    success: function (response) {
                         console.log(response);
                         table = document.querySelector('.panel-table div table tbody');
                         document.querySelector('.panel-table div table').style.opacity = '1';
                         table.innerHTML = '';
-                        if(response.length != 0) {
+                        if (response.length != 0) {
                             document.querySelector('.no-items').style.display = 'none';
                             response.forEach((product, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML += `
-                                    <td>${index+1}</td>
+                                    <td>${index + 1}</td>
                                     <td>${product.describtion}</td>
                                     <td>${product.price}</td>
                                     <td>${product.tax}</td>
@@ -401,7 +428,7 @@
             })
 
             // Filter Products With Modle ID
-            $('.filter-models').on('click', function(e) {
+            $('.filter-models').on('click', function (e) {
                 e.preventDefault();
 
                 let model_id = document.querySelector('#model_id').value;
@@ -412,18 +439,18 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.filter-products-model-id")}}',
-                    data: { model_id: model_id },
-                    success: function(response) {
+                    data: {model_id: model_id},
+                    success: function (response) {
                         console.log(response);
                         table = document.querySelector('.panel-table div table tbody');
                         document.querySelector('.panel-table div table').style.opacity = '1';
                         table.innerHTML = '';
-                        if(response.length != 0) {
+                        if (response.length != 0) {
                             document.querySelector('.no-items').style.display = 'none';
                             response.forEach((product, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML += `
-                                    <td>${index+1}</td>
+                                    <td>${index + 1}</td>
                                     <td>${product.describtion}</td>
                                     <td>${product.price}</td>
                                     <td>${product.tax}</td>
@@ -440,7 +467,7 @@
             })
 
             // Filter Products With Size
-            $('.filter-sizes').on('click', function(e) {
+            $('.filter-sizes').on('click', function (e) {
                 e.preventDefault();
 
                 let size = document.querySelector('#size').value;
@@ -451,18 +478,18 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.filter-products-size")}}',
-                    data: { size: size },
-                    success: function(response) {
+                    data: {size: size},
+                    success: function (response) {
                         console.log(response);
                         table = document.querySelector('.panel-table div table tbody');
                         document.querySelector('.panel-table div table').style.opacity = '1';
                         table.innerHTML = '';
-                        if(response.length != 0) {
+                        if (response.length != 0) {
                             document.querySelector('.no-items').style.display = 'none';
                             response.forEach((product, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML += `
-                                    <td>${index+1}</td>
+                                    <td>${index + 1}</td>
                                     <td>${product.describtion}</td>
                                     <td>${product.price}</td>
                                     <td>${product.tax}</td>
@@ -480,7 +507,7 @@
 
 
             // Filter Products With Size
-            $('.filter-colors').on('click', function(e) {
+            $('.filter-colors').on('click', function (e) {
                 e.preventDefault();
 
                 let color = document.querySelector('#color').value;
@@ -491,18 +518,18 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.filter-products-color")}}',
-                    data: { color: color },
-                    success: function(response) {
+                    data: {color: color},
+                    success: function (response) {
                         console.log(response);
                         table = document.querySelector('.panel-table div table tbody');
                         document.querySelector('.panel-table div table').style.opacity = '1';
                         table.innerHTML = '';
-                        if(response.length != 0) {
+                        if (response.length != 0) {
                             document.querySelector('.no-items').style.display = 'none';
                             response.forEach((product, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML += `
-                                    <td>${index+1}</td>
+                                    <td>${index + 1}</td>
                                     <td>${product.describtion}</td>
                                     <td>${product.price}</td>
                                     <td>${product.tax}</td>
@@ -518,23 +545,23 @@
                 });
             })
 
-/* ==================================================================================================
-==================================== Set Select Boxes ===============================================
-================================================================================================== */
+            /* ==================================================================================================
+            ==================================== Set Select Boxes ===============================================
+            ================================================================================================== */
 
             // Set the brands after choosing the category ID
             let category_ID = document.querySelector('#category_id');
-            $(category_ID).on('change', function(e) {
+            $(category_ID).on('change', function (e) {
                 console.log(category_ID.value);
-                if($(this).val() != '') {
+                if ($(this).val() != '') {
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         type: "POST",
                         url: '{{route("dashboard.filter-brands-by-category-id")}}',
-                        data: { category_id: category_ID.value },
-                        success: function(response) {
+                        data: {category_id: category_ID.value},
+                        success: function (response) {
                             let brandSelect = document.querySelector('#brand_id');
                             brandSelect.innerHTML = '<option value=""></option>';
                             response.forEach((brand, index) => {
@@ -543,7 +570,7 @@
                                 `;
                             });
                             brandSelect.disabled = false;
-                            
+
                         }
                     });
                 } else {
@@ -560,18 +587,18 @@
 
             // Set The models after choosing the Brand ID
             let modal_brand_ID = document.querySelector('.modal_brand_id');
-            $(modal_brand_ID).on('change', function(e) {
+            $(modal_brand_ID).on('change', function (e) {
                 console.log(modal_brand_ID.value);
-                if($(this).val() != '') {
+                if ($(this).val() != '') {
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         type: "POST",
                         url: '{{route("dashboard.filter-models-by-brand-id")}}',
-                        data: { brand_id: modal_brand_ID.value },
-                        
-                        success: function(response) {
+                        data: {brand_id: modal_brand_ID.value},
+
+                        success: function (response) {
                             let modelsSelect = document.querySelector('#model_id');
                             modelsSelect.innerHTML = '<option value=""></option>';
                             response.forEach((model, index) => {
@@ -580,7 +607,7 @@
                                 `;
                             });
                             modelsSelect.disabled = false;
-                            
+
                         }
                     });
                 } else {
@@ -589,13 +616,13 @@
                     modelsSelect.disabled = true;
                 }
             });
-            
+
             // Hide Tableon modal closing
             $('#myModal, #updateModal').on('hidden.bs.modal', function (e) {
                 document.querySelector('.panel-table div table').style.opacity = '0';
             })
         });
 
-   </script>
+    </script>
 
 @stop
