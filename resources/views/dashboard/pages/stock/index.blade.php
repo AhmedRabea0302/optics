@@ -57,6 +57,10 @@
         }
 
         .panel.left .btn.btn-danger {
+            margin-left: 5px
+        }
+
+        .panel.left .btn.btn-success {
             margin-left: 10px
         }
 
@@ -173,7 +177,8 @@
                                             <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                         @endforeach
                                     </select>
-                                    <button class="btn btn-danger filter-categories"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success filter-categories"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
                                   </div>
 
                                   <div class="form-group">
@@ -181,7 +186,8 @@
                                     <select name="brand_id" id="brand_id" disabled class="form-control modal_brand_id">
                                         <option value=""></option>
                                     </select>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success filter-brands"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
                                   </div>
 
                                   <div class="form-group">
@@ -189,19 +195,22 @@
                                     <select name="model_id" id="model_id" disabled class="form-control">
                                         <option value=""></option>
                                     </select>
-                                    <button class="btn btn-danger filter-models"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success filter-models"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
                                   </div>
 
                                   <div class="form-group">
                                     <label for="size">Size</label>
                                     <input type="text" name="size" id="size" class="form-control">
-                                    <button class="btn btn-danger filter-sizes"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success filter-sizes"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
                                   </div>
 
                                   <div class="form-group">
                                     <label for="color">Color</label>
                                     <input type="text" name="color" id="color" class="form-control">
-                                    <button class="btn btn-danger filter-colors"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success filter-colors"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
                                   </div>
 
                                 </div>
