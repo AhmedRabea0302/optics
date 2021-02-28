@@ -11,13 +11,13 @@
     <div class="box box-primary">
         <div class="box-header">
              <!-- tools box -->
-             <div class="pull-right box-tools">                                        
+             <div class="pull-right box-tools">
                 <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
             </div>
 
             <i class="fa fa-users"></i>
             <h3 class="box-title">Customers <small class="badge bg-green">{{$customers->count() ? $customers->total() : ''}}</small></h3>
-            
+
             <form action="{{route('dashboard.get-all-customers')}}" method="GET">
 
                 <div class="row" style="margin-top: 6px">
@@ -28,18 +28,18 @@
                         <button type="submit" class="btn btn-primary  btn-flat"><i class="fa fa-search"></i> Search</button>
                         @if(auth()->user()->hasPermission('create_users'))
                             <a href="{{route('dashboard.get-add-customer')}}" class="btn btn-primary  btn-flat" style="color: #fff"><i class="fa fa-plus"></i> Add Customer</a>
-                        @else 
+                        @else
                             <a class="btn btn-primary disabled" style="color: #fff"><i class="fa fa-plus  btn-flat"></i> Add Customer</a>
                         @endif
-                        
+
                     </div>
                 </div>
 
             </form>
         </div><!-- /.box-header -->
-        
+
         <div class="box-body">
-                
+
                 <div class="box-body no-padding ">
                     @if($customers->count() > 0)
                         <table class="table table-bordered table-hover">
@@ -56,7 +56,7 @@
                                 @foreach($customers as $index => $customer)
                                     <tr>
                                         <th>{{$index + 1}}</th>
-                                        <td>{{$customer->customer_id}}</td>
+                                        <td><a href="{{route('dashboard.show-customer',['id' => $customer->id])}}">{{$customer->customer_id}}</a></td>
                                         <td>{{$customer->english_name}}</td>
                                         <td>{{$customer->local_name}}</td>
                                         <td>{{$customer->mobile_number}}</td>
@@ -70,14 +70,14 @@
                                                 @else
                                                     <a href="#" class="btn btn-info btn-sm disabled  btn-flat"><i class="fa fa-pencil"></i> Update</a>
                                                 @endif
-                                                
+
                                                 @if(auth()->user()->hasPermission('delete_users'))
                                                     <form action="{{route('dashboard.delete-customer', $customer->id)}}" method="GET">
                                                         {{ csrf_field() }}
                                                         {{ method_field('delete') }}
                                                         <button type="submit" class="btn btn-danger delete btn-sm btn-flat" style="margin-left: 10px"><i class="fa fa-trash-o"></i> Delete</button>
                                                     </form>
-                                                @else 
+                                                @else
                                                     <button type="submit" class="btn btn-danger btn-sm disabled btn-flat delete" style="margin-left: 10px"><i class="fa fa-trash-o"></i> Delete</button>
                                                 @endif
                                             </div>

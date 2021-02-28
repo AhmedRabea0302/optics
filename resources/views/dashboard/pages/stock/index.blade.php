@@ -181,7 +181,8 @@
                                     <select name="brand_id" id="brand_id" disabled class="form-control modal_brand_id">
                                         <option value=""></option>
                                     </select>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success filter-brands"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger filter-brands"><i class="fa fa-close"></i></button>
                                   </div>
 
                                   <div class="form-group">
