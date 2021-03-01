@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(function() {
         Route::get('home' , 'DashboardController@index')->name('index');
@@ -20,6 +20,7 @@
         Route::get('update-customer/{id}' ,'CustomerController@getUpdateCustomer')->name('get-update-customer');
         Route::post('update-customer/{id}' ,'CustomerController@postUpdateCustomer')->name('post-update-customer');
         Route::get('delete-customer/{id}' ,'CustomerController@deleteCustomer')->name('delete-customer');
+        Route::get('show-customer/{id}' ,'CustomerController@showCustomer')->name('show-customer');
 
         // Stock Overview Routes
         Route::get('stock-overview/' ,'StockOverview@index')->name('get-stock-overview');
@@ -35,7 +36,7 @@
 
             Route::post('filter-brands-bycatid/' ,'StockOverview@filterBrandsByCatId')->name('filter-brands-by-category-id');
             Route::post('filter-brands-bybrandid/' ,'StockOverview@filterModelsByBrandId')->name('filter-models-by-brand-id');
-        
+
 
         // Categories Routes
         Route::get('all-categories/' ,'CategoryController@index')->name('get-all-categories');
@@ -46,7 +47,7 @@
         Route::get('all-branches/' ,'BranchController@index')->name('get-all-branches');
         Route::post('add-branche/' ,'BranchController@addBranch')->name('add-branche');
         Route::post('update-branche/' ,'BranchController@updateBranch')->name('update-branche');
- 
+
         // Branches Routes
         Route::get('all-products/' ,'ProductController@index')->name('get-all-products');
         Route::get('add-product/' ,'ProductController@getAddProduct')->name('get-add-product');
@@ -63,5 +64,5 @@
         Route::post('add-model/' ,'GlassModelController@addModel')->name('post-add-model');
         Route::post('update-model/' ,'GlassModelController@updateModel')->name('update-model');
 
-        
+
     });

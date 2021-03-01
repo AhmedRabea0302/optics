@@ -19,7 +19,7 @@
 
                     {{ csrf_field() }}
                     {{ method_field('POST') }}
-                    
+
                     <div class="row" style="display: flex; align-items:center" >
                         <div class="col-md-4">
                             <div class="form-group">
@@ -77,7 +77,7 @@
                                 <select name="gender" id="gender" class="form-control">
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
-                                </select>                            
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                 <select name="prefered_language" id="prefered_language" class="form-control">
                                     <option value="English">English</option>
                                     <option value="Arabic">Arabic</option>
-                                </select>                            
+                                </select>
                             </div>
                         </div>
 
@@ -294,7 +294,7 @@
                                     <option value="yemenite">Yemenite</option>
                                     <option value="zambian">Zambian</option>
                                     <option value="zimbabwean">Zimbabwean</option>
-                                </select>                            
+                                </select>
                             </div>
                         </div>
 
@@ -574,7 +574,7 @@
                                     <option value="Yemen">Yemen</option>
                                     <option value="Zambia">Zambia</option>
                                     <option value="Zimbabwe">Zimbabwe</option>
-                                </select>                          
+                                </select>
                             </div>
                         </div>
 
@@ -594,7 +594,7 @@
                                     <option value="Dukhan">Dukhan</option>
                                     <option value="Umm Bab">Umm Bab</option>
                                     <option value="Umm Salal Muhammad">Umm Salal Muhammad</option>
-                                </select>                            
+                                </select>
                             </div>
                         </div>
 
@@ -604,7 +604,7 @@
                                 <textarea class="form-control" name="address" id="address" cols="30" rows="3">{{ old('address') }}</textarea>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="notes">Notes</label>
@@ -649,7 +649,7 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="preferedlang">Receive Notifications</label>
@@ -658,7 +658,7 @@
                                     <option value="SMS Notifications">SMS Notifications</option>
                                     <option value="Both">Both</option>
                                     <option value="None">None</option>
-                                </select>                            
+                                </select>
                             </div>
                         </div>
 
@@ -675,7 +675,7 @@
                 </div>
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add Customer</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>Save</button>
                 </div>
             </div>
         </form>
@@ -695,7 +695,7 @@
             today = new Date(yyyy + '-' + mm + '-' + dd);
             console.log(today);
 
-            
+
             let date = document.querySelector('input[name="birth_date"]');
             let ageInput = document.querySelector('input[name="age"]')
             date.addEventListener('change', e => {
@@ -707,5 +707,5 @@
 
 
     @endsection
-    
+
 @endsection

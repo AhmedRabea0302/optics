@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('content')
-    
+
     <style>
         .bordered-inputs {
             border: 1px solid #3c8dbc;
@@ -10,6 +10,7 @@
         .item-table {
             opacity: 0;
         }
+
         .modal.in .modal-dialog {
             width: 85%;
         }
@@ -27,7 +28,7 @@
             opacity: 0.75;
             transition: ease-in-out all 0.3s;
         }
-        
+
         .modal .modal-body {
             padding: 15px 15px;
         }
@@ -142,23 +143,28 @@
 
     <div class="box box-primary">
         <div class="box-header">
-             <!-- tools box -->
-             <div class="pull-right box-tools">                                        
-                <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-success btn-sm pull-right" data-target="#myModal" data-toggle="modal" title="Advanced Search" style="margin-right: 5px;"><i class="fa fa-search"></i></button>
+            <!-- tools box -->
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip"
+                        title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-success btn-sm pull-right" data-target="#myModal" data-toggle="modal"
+                        title="Advanced Search" style="margin-right: 5px;"><i class="fa fa-search"></i></button>
             </div>
-            
+
             <i class="fa fa-stack-overflow"></i>
             <h3 class="box-title">Stock Overview</h3>
-            
+
             <form method="POST" id="search-item">
 
                 <div class="row" style="margin-top: 6px">
                     <div class="col-md-4">
-                        <input type="text" name="search" class="form-control" placeholder="Search Items" value="{{request()->search}}">
+                        <input type="text" name="search" class="form-control" placeholder="Search Items"
+                               value="{{request()->search}}">
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary  btn-flat"><i class="fa fa-search"></i> Search For Item</button>
+                        <button type="submit" class="btn btn-primary  btn-flat"><i class="fa fa-search"></i> Search For
+                            Item
+                        </button>
                     </div>
                 </div>
                 <div class="alert alert-danger" style="display: none; margin: 10px; width: 63%">
@@ -167,9 +173,9 @@
             </form>
 
         </div><!-- /.box-header -->
-        
+
         <div class="box-body">
-                
+
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -178,7 +184,7 @@
                             <input type="text" name="item_id" class="item_id form-control">
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -197,7 +203,7 @@
                                 <th>Description</th>
                                 <th>Stock Amount</th>
                             </tr>
-    
+
                             <tr>
                                 <td class="first-td"></td>
                                 <td class="second-td"></td>
@@ -217,14 +223,14 @@
 
             <!-- Modal content-->
             <div class="modal-content">
-                
+
                 <div class="modal-header box-item-head">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3>Advanced Search</h3>
                 </div>
-                
+
                 <div class="modal-body  box-item-content">
-                    
+
                     <div class="row">
                         <!-- Left Panel -->
                         <div class="col-md-6">
@@ -307,17 +313,17 @@
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>ID#</th>
-                                            <th>Description</th>
-                                            <th>Price</th>
-                                            <th>Tax</th>
-                                            <th>Total</th>
-                                        </tr>
+                                    <tr>
+                                        <th>ID#</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Tax</th>
+                                        <th>Total</th>
+                                    </tr>
                                     </thead>
-            
+
                                     <tbody>
-    
+
                                     </tbody>
                                 </table>
                             </div>
@@ -335,19 +341,19 @@
         </div>
     </div>
 
-    
+
 
     <script src="{{asset('assets/js/jquery-2.0.2.min.js')}}" type="text/javascript"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            // Search Item with ID 
-            $('#search-item').submit( function(event) {
+            // Search Item with ID
+            $('#search-item').submit(function (event) {
                 event.preventDefault();
-        
+
                 product_id = $('.box .box-header input[name="search"]').val().trim();
 
-                if(product_id == '') {
+                if (product_id == '') {
                     $('.alert-danger').css('display', 'block');
                     $('.alert-danger p').html('Please Enter Product ID!');
                 } else {
@@ -359,7 +365,7 @@
                     let first_td = document.querySelector('.first-td');
                     let second_td = document.querySelector('.second-td');
                     let third_td = document.querySelector('.third-td');
-                    
+
                     table.style.opacity = '0';
                     item_input.value = '';
                     description.innerText = '';
@@ -370,9 +376,9 @@
                         },
                         type: "POST",
                         url: '{{route("dashboard.search-item")}}',
-                        data: { product_id: product_id },
-                        success: function(response) {
-                            if(response.message == 'No Item Found With this ID!') {
+                        data: {product_id: product_id},
+                        success: function (response) {
+                            if (response.message == 'No Item Found With this ID!') {
                                 $('.success-message').css('display', 'none');
                                 $('.alert-danger').css('display', 'block');
                                 $('.alert-danger p').html('No Item Found With this ID!');
@@ -386,19 +392,19 @@
                                 second_td.innerText = response.describtion;
                                 third_td.innerText = response.amount;
 
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     item_input.classList.add('bordered-inputs');
                                     description.classList.add('bordered-inputs');
                                     table.classList.add('bordered-inputs');
                                     table.style.opacity = '1';
                                 }, 200)
                             }
-                            
+
                         },
 
                     });
                 }
-                
+
             });
             
             // On Changing Category Select Box
