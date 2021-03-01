@@ -88,7 +88,7 @@
             border: 1px solid #ccc;
             font-size: 14px;
             font-style: italic;
-
+            box-shadow: 0 1px 1px 2px #428e4d;
         }
 
         .panel.left .form-group .form-control {
@@ -126,7 +126,7 @@
             font-size: 16px
         }
 
-        .panel.right .panel-body table tbody tr td a.translate-brand {
+        .panel.right .panel-body table tbody tr td a.translate {
             float: left;
             font-size: 22px;
             color: #4fa75b;
@@ -255,28 +255,28 @@
                                         <label for="brand">Brand</label>
                                         <input type="text" name="brand_input" id="brand_input" class="form-control brand_input" data-id="">
                                         <button class="btn btn-success filter-brands btn-flat"><i class="fa fa-search"></i></button>
-                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                        <button class="btn btn-danger btn-flat reset-brand"><i class="fa fa-times"></i></button>
                                     </div>
     
                                     <div class="form-group">
                                         <label for="model">Model</label>
                                         <input type="text" name="model_input" id="model_input" class="form-control model_input">
                                         <button class="btn btn-success filter-models btn-flat"><i class="fa fa-search"></i></button>
-                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                        <button class="btn btn-danger btn-flat reset-model"><i class="fa fa-times"></i></button>
                                     </div>
     
                                     <div class="form-group">
                                         <label for="size">Size</label>
                                         <input type="text" name="size" id="size" class="form-control">
                                         <button class="btn btn-success filter-sizes btn-flat"><i class="fa fa-search"></i></button>
-                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                        <button class="btn btn-danger btn-flat reset-size"><i class="fa fa-times"></i></button>
                                     </div>
     
                                     <div class="form-group">
                                         <label for="color">Color</label>
                                         <input type="text" name="color" id="color" class="form-control">
                                         <button class="btn btn-success filter-colors btn-flat"><i class="fa fa-search"></i></button>
-                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                        <button class="btn btn-danger btn-flat reset-color"><i class="fa fa-times"></i></button>
                                     </div>
                                 </div>
 
@@ -412,7 +412,9 @@
             $(categorySelector).on('change', function(e) {
                 console.log(categorySelector.value);
                 let brand_input = document.querySelector('#brand_input');
+                let model_input = document.querySelector('#model_input');
                 brand_input.value = '';
+                model_input.value = '';
                 // Showing Filters Container
                 if($(this).val() != '') {
                     let flitersContainer = document.querySelector('.filters-container');
@@ -424,44 +426,8 @@
                     e.preventDefault();
                     let brand_value = document.querySelector('#brand_input').value;
 
-                    if(brand_value != '') { // Get all Products With this brand name
-                        
-                        let brand_id = brand_input.getAttribute('data-id');
-                        let category_id = categorySelector.value;
+                    if(brand_value == '') { // Get all Brands Under The Choosed Category
 
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            type: "POST",
-                            url: '{{route("dashboard.filter-products-by-category-id-and-brandID")}}',
-                            data: { category_id: category_id, brand_id: brand_id },
-                            success: function(response) {
-                                console.log(response);
-                                table = document.querySelector('.panel.right .panel-body table tbody');
-                                document.querySelector('.panel.right .panel-body table').style.opacity = '1';
-                                table.innerHTML = '';
-                                if(response.length != 0) {
-                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
-                                    response.forEach((brand, index) => {
-                                        let row = document.createElement('tr');
-                                        row.innerHTML += `
-                                            <td>
-                                                <a href="#" class="translate-brand"><i class="fa fa-arrows-h"></i></a>
-                                                <p class="text-center"><strong data-id="${ brand.id }">${ brand.brand_name }</strong></p>
-                                            </td>
-                                        `;
-                                        table.appendChild(row)
-                                    });
-                                } else {
-                                    document.querySelector('.panel.right .panel-body table').style.opacity = '0';
-                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
-                                }
-                            }
-                        });
-
-
-                    } else { // Get All Brands And Set Them Under The Pickup Values Section
                         category_ID = document.querySelector('#category_id').value;
                         $.ajax({
                             headers: {
@@ -481,7 +447,7 @@
                                         let row = document.createElement('tr');
                                         row.innerHTML += `
                                             <td>
-                                                <a href="#" class="translate-brand"><i class="fa fa-arrows-h"></i></a>
+                                                <a href="#" class="translate-brand translate"><i class="fa fa-arrows-h"></i></a>
                                                 <p class="text-center"><strong data-id="${ brand.id }">${ brand.brand_name }</strong></p>
                                             </td>
                                         `;
@@ -494,7 +460,50 @@
                             }
                         });
 
-                    }
+                    } 
+                });
+
+                // Filter Models
+                $('.filter-models').on('click', function(e) {
+                    e.preventDefault();
+                    let model_value = document.querySelector('#model_input').value;
+                    console.log('HHHH');
+                    if(model_value == '') { // Get all Models Under The Choosed Brand
+
+                        category_ID = document.querySelector('#category_id').value;
+                        brand_ID = document.querySelector('#brand_input').getAttribute('data-id');
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            type: "POST",
+                            url: '{{route("dashboard.filter-models-by-category-and-brand-id")}}',
+                            data: { category_id: category_ID, brand_id: brand_ID },
+                            success: function(response) {
+                                console.log(response);
+                                table = document.querySelector('.panel.right .panel-body table tbody');
+                                document.querySelector('.panel.right .panel-body table').style.opacity = '1';
+                                table.innerHTML = '';
+                                if(response.length != 0) {
+                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
+                                    response.forEach((model, index) => {
+                                        let row = document.createElement('tr');
+                                        row.innerHTML += `
+                                            <td>
+                                                <a href="#" class="translate-model translate"><i class="fa fa-arrows-h"></i></a>
+                                                <p class="text-center"><strong data-id="${ model.id }">${ model.model_id }</strong></p>
+                                            </td>
+                                        `;
+                                        table.appendChild(row)
+                                    });
+                                } else {
+                                    document.querySelector('.panel.right .panel-body table').style.opacity = '0';
+                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
+                                }
+                            }
+                        });
+
+                    } 
                 });
                 
             });
@@ -503,7 +512,7 @@
             let brandTable = document.querySelector('.panel.right .panel-body table');
             brandTable.addEventListener('click', function(e) {
                 console.log(e.target.tagName)
-                if(e.target.tagName == 'I') {
+                if(e.target.tagName == 'I' & e.target.parentElement.classList.contains('translate-brand')) {
                     let brandValue = e.target.parentElement.nextSibling.nextSibling.firstChild;
                     let brandID = brandValue.getAttribute('data-id');
                     console.log(brandValue.innerText, brandID);
@@ -512,6 +521,71 @@
                     brandSelect.value = brandValue.innerText;
                     brandSelect.setAttribute('data-id', brandID);
                 }
+
+                if(e.target.tagName == 'I' & e.target.parentElement.classList.contains('translate-model')) {
+                    let modelValue = e.target.parentElement.nextSibling.nextSibling.firstChild;
+                    let modelID = modelValue.getAttribute('data-id');
+                    console.log(modelValue.innerText, modelID);
+
+                    let modelSelect = document.querySelector('#model_input');
+                    modelSelect.value = modelValue.innerText;
+                    modelSelect.setAttribute('data-id', modelID);
+                }
+            });
+
+            $('.filter-categories').on('click', function(e) {
+                let category_id = document.querySelector('#category_id').value;
+                let brand_input_id = document.querySelector('#brand_input').getAttribute('data-id');
+                let model_input_id = document.querySelector('#model_input').getAttribute('data-id');
+                // let color  ;
+                // let size
+
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: "POST",
+                    url: '{{route("dashboard.full-search")}}',
+                    data: { category_id: category_id, brand_id: brand_input_id, model_id: model_input_id },
+                    success: function(response) {
+                        console.log(response);
+                        // table = document.querySelector('.panel.right .panel-body table tbody');
+                        // document.querySelector('.panel.right .panel-body table').style.opacity = '1';
+                        // table.innerHTML = '';
+                        // if(response.length != 0) {
+                        //     document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
+                        //     response.forEach((model, index) => {
+                        //         let row = document.createElement('tr');
+                        //         row.innerHTML += `
+                        //             <td>
+                        //                 <a href="#" class="translate-model translate"><i class="fa fa-arrows-h"></i></a>
+                        //                 <p class="text-center"><strong data-id="${ model.id }">${ model.model_id }</strong></p>
+                        //             </td>
+                        //         `;
+                        //         table.appendChild(row)
+                        //     });
+                        // } else {
+                        //     document.querySelector('.panel.right .panel-body table').style.opacity = '0';
+                        //     document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
+                        // }
+                    }
+                });
+
+
+                console.log(category_id, brand_input_id, model_input_id)
+            });
+
+            // Reset Brand Input
+            $('.reset-brand').on('click', function(e) {
+                e.preventDefault();
+                $('#brand_input').val('');
+            });
+
+            // Reset Model Input
+            $('.reset-model').on('click', function(e) {
+                e.preventDefault();
+                $('#model_input').val('');
             });
 
             // Hide Products Table on modal closing

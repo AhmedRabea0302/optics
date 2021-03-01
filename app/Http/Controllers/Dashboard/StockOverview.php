@@ -9,6 +9,7 @@ use App\Branch;
 use App\Category;
 use App\glassModel;
 use App\Brand;
+use DB;
 
 class StockOverview extends Controller
 {
@@ -78,13 +79,13 @@ class StockOverview extends Controller
     }
     
     // Filter Products By Category And Brand
-    public function filterProductsByCategoryAndBrand(Request $request) {
-        $products = Product::where(['category_id' => $request->category_id, 'brand_id' => $request->brand_id])->get();
+    // public function filterProductsByCategoryAndBrand(Request $request) {
+    //     $products = Product::where(['category_id' => $request->category_id, 'brand_id' => $request->brand_id])->get();
 
-        if($products) {
-            return response()->json($products);
-        }
-    }
+    //     if($products) {
+    //         return response()->json($products);
+    //     }
+    // }
     
     // Filter Brands by Category ID
     public function filterBrandsByCatId(Request $request) {
@@ -102,5 +103,26 @@ class StockOverview extends Controller
         if($models) {
             return response()->json($models);
         }
+    }
+
+    // Filter Models By Category_id AND BrandId
+    public function filterModelsByCategoryIdAndBrandId(Request $request) {
+        if($request->brand_id) {
+            $models = glassModel::where([ ['category_id', '=', $request->category_id],
+                                        ['brand_id', '=', $request->brand_id] ])->get();
+        } else {
+            $models = glassModel::where('category_id', $request->category_id)->get();
+        }
+
+        if($models) {
+            return response()->json($models);
+        }
+    }
+
+    public function fullSearch(Request $request) {
+        $products = DB::select('select * from products where (category_id = :category_id AND brand_id = :brand_id AND model_id = :model_id)', 
+        ['category_id' => $request->category_id, 'brand_id' => $request->brand_id, 'model_id' => $request->model_id]);
+        
+        return response()->json($products);
     }
 }
