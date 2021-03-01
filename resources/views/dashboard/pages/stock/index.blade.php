@@ -40,9 +40,34 @@
             min-height: 350px;
         }
 
+        .panel .panel-heading {
+            text-align: center;
+        }
+
         .panel.left .panel-heading {
             background-color: #3c8dbc;
             font-size: 16px
+        }
+
+        .panel.right .panel-heading {
+            color: #fff;
+        }
+
+        .panel.right .panel-body table thead {
+            background-color: #032524;
+            color: #fff;
+            border: 1px solid #032524;
+        }
+
+        .panel.right .panel-body table thead tr th {
+            border: none;
+            text-align: center
+        }
+
+        .panel.right .panel-body table tbody tr td {
+            text-align: center;
+            justify-content: center;
+            padding: 5px 15px;
         }
 
         .panel.left .form-group {
@@ -50,23 +75,61 @@
             align-items: center;
         }
 
-        .panel.left .form-group label {
+        .panel.left .form-group label { 
+            text-align: center;
             margin-right: 10px;
-            width: 40px;
-            display: inline-table
+            width: 60px;
+            display: inline-table;
+            color: #428e4d;
+            background: #f2f1f1;
+            padding: 2px 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-style: italic;
+
+        }
+
+        .panel.left .form-group .form-control {
+            border: 2px solid #3c8dbc;
         }
 
         .panel.left .btn.btn-danger {
-            margin-left: 5px
+            margin-left: 5px;
         }
 
         .panel.left .btn.btn-success {
             margin-left: 10px
         }
 
+        .panel.left .filters-container .btn.btn-danger {
+            background: none;
+            color: #f4543c;
+            border: none;
+        }
+
+        .panel.left .filters-container .btn.btn-success {
+            background: none;
+            color: #032524;
+            border: none;
+            transition: all ease-in-out 0.3s;
+        }
+
+        .panel.left .filters-container .btn.btn-success:focus {
+            box-shadow: none;
+            transform: scale(1.2);
+        }
+
         .panel.right .panel-heading {
-            background-color: #008d4c;
+            background-color: #032524;
             font-size: 16px
+        }
+
+        .panel.right .panel-body table tbody tr td a.translate-brand {
+            float: left;
+            font-size: 22px;
+            color: #4fa75b;
+            cursor: pointer;
         }
 
     </style>
@@ -128,7 +191,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table table-bordered table-hover item-table">
+                        <table class="table table-bordered table-hover item-table" style="opacity: 0">
                             <tr>
                                 <th>Branch Name</th>
                                 <th>Description</th>
@@ -177,57 +240,66 @@
                                             <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                         @endforeach
                                     </select>
-                                    <button class="btn btn-success filter-categories"><i class="fa fa-search"></i></button>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
+                                    <button class="btn btn-success filter-categories btn-flat"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
                                   </div>
 
-                                  <div class="form-group">
-                                    <label for="brand">Brand</label>
-                                    <select name="brand_id" id="brand_id" disabled class="form-control modal_brand_id">
-                                        <option value=""></option>
-                                    </select>
-                                    <button class="btn btn-success filter-brands"><i class="fa fa-search"></i></button>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="model">Model</label>
-                                    <select name="model_id" id="model_id" disabled class="form-control">
-                                        <option value=""></option>
-                                    </select>
-                                    <button class="btn btn-success filter-models"><i class="fa fa-search"></i></button>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="size">Size</label>
-                                    <input type="text" name="size" id="size" class="form-control">
-                                    <button class="btn btn-success filter-sizes"><i class="fa fa-search"></i></button>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="color">Color</label>
-                                    <input type="text" name="color" id="color" class="form-control">
-                                    <button class="btn btn-success filter-colors"><i class="fa fa-search"></i></button>
-                                    <button class="btn btn-danger filter-brands"><i class="fa fa-times"></i></button>
-                                  </div>
+                                <div class="filters-container" style="display: none">
+                                    <div class="form-group">
+                                        <label for="brand">Brand</label>
+                                        <input type="text" name="brand_input" id="brand_input" class="form-control brand_input" data-id="">
+                                        <button class="btn btn-success filter-brands btn-flat"><i class="fa fa-search"></i></button>
+                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="model">Model</label>
+                                        <input type="text" name="model_input" id="model_input" class="form-control model_input">
+                                        <button class="btn btn-success filter-models btn-flat"><i class="fa fa-search"></i></button>
+                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="size">Size</label>
+                                        <input type="text" name="size" id="size" class="form-control">
+                                        <button class="btn btn-success filter-sizes btn-flat"><i class="fa fa-search"></i></button>
+                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="color">Color</label>
+                                        <input type="text" name="color" id="color" class="form-control">
+                                        <button class="btn btn-success filter-colors btn-flat"><i class="fa fa-search"></i></button>
+                                        <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
 
                                 </div>
-                              </div>
+                            </div>
                         </div>
 
                         <!-- Right Panel -->
-                        {{-- <div class="col-md-6">
+                        <div class="col-md-6">
                             <div class="panel panel-primary right">
                                 <!-- Default panel contents -->
                                 <div class="panel-heading">Pick Up Values</div>
                                 <div class="panel-body">
-                                  <p></p>
+                                  <p class="no-items lead" style="display: none">No Items Found!</p>
+                                  <table class="table table-bordered table-hover" style="opacity: 0">
+                                      <thead>
+                                            <tr>
+                                              <th>Name</th>
+                                            </tr>
+                                      </thead>
+
+                                      <tbody>
+                                        
+                                      </tbody>
+                                  </table>
                                 </div>
 
                               </div>
-                        </div> --}}
+                        </div> 
                     </div>
 
                     <div class="row">
@@ -328,282 +400,121 @@
                 }
                 
             });
-
-            // Filter Products With category ID
-            $('.filter-categories').on('click', function(e) {
-                e.preventDefault();
-
-                let cat_id = document.querySelector('#category_id').value;
-
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    type: "POST",
-                    url: '{{route("dashboard.filter-products-cat-id")}}',
-                    data: { category_id: cat_id },
-                    success: function(response) {
-                        console.log(response);
-                        table = document.querySelector('.panel-table div table tbody');
-                        document.querySelector('.panel-table div table').style.opacity = '1';
-                        table.innerHTML = '';
-                        if(response.length != 0) {
-                            document.querySelector('.no-items').style.display = 'none';
-                            response.forEach((product, index) => {
-                                let row = document.createElement('tr');
-                                row.innerHTML += `
-                                    <td>${index+1}</td>
-                                    <td>${product.describtion}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.tax}</td>
-                                    <td>${product.total}</td>
-                                `;
-                                table.appendChild(row)
-                            });
-                        } else {
-                            document.querySelector('.panel-table div table').style.opacity = '0';
-                            document.querySelector('.no-items').style.display = 'block';
-                        }
-                    }
-                });
-            })
-
-
-            // Filter Products With Brand ID
-            $('.filter-brands').on('click', function(e) {
-                e.preventDefault();
-
-                let brand_id = document.querySelector('#brand_id').value;
-
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    type: "POST",
-                    url: '{{route("dashboard.filter-products-brand-id")}}',
-                    data: { brand_id: brand_id },
-                    success: function(response) {
-                        console.log(response);
-                        table = document.querySelector('.panel-table div table tbody');
-                        document.querySelector('.panel-table div table').style.opacity = '1';
-                        table.innerHTML = '';
-                        if(response.length != 0) {
-                            document.querySelector('.no-items').style.display = 'none';
-                            response.forEach((product, index) => {
-                                let row = document.createElement('tr');
-                                row.innerHTML += `
-                                    <td>${index+1}</td>
-                                    <td>${product.describtion}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.tax}</td>
-                                    <td>${product.total}</td>
-                                `;
-                                table.appendChild(row)
-                            });
-                        } else {
-                            document.querySelector('.panel-table div table').style.opacity = '0';
-                            document.querySelector('.no-items').style.display = 'block';
-                        }
-                    }
-                });
-            })
-
-            // Filter Products With Modle ID
-            $('.filter-models').on('click', function(e) {
-                e.preventDefault();
-
-                let model_id = document.querySelector('#model_id').value;
-                console.log('model ID: ', model_id);
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    type: "POST",
-                    url: '{{route("dashboard.filter-products-model-id")}}',
-                    data: { model_id: model_id },
-                    success: function(response) {
-                        console.log(response);
-                        table = document.querySelector('.panel-table div table tbody');
-                        document.querySelector('.panel-table div table').style.opacity = '1';
-                        table.innerHTML = '';
-                        if(response.length != 0) {
-                            document.querySelector('.no-items').style.display = 'none';
-                            response.forEach((product, index) => {
-                                let row = document.createElement('tr');
-                                row.innerHTML += `
-                                    <td>${index+1}</td>
-                                    <td>${product.describtion}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.tax}</td>
-                                    <td>${product.total}</td>
-                                `;
-                                table.appendChild(row)
-                            });
-                        } else {
-                            document.querySelector('.panel-table div table').style.opacity = '0';
-                            document.querySelector('.no-items').style.display = 'block';
-                        }
-                    }
-                });
-            })
-
-            // Filter Products With Size
-            $('.filter-sizes').on('click', function(e) {
-                e.preventDefault();
-
-                let size = document.querySelector('#size').value;
-                console.log(size);
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    type: "POST",
-                    url: '{{route("dashboard.filter-products-size")}}',
-                    data: { size: size },
-                    success: function(response) {
-                        console.log(response);
-                        table = document.querySelector('.panel-table div table tbody');
-                        document.querySelector('.panel-table div table').style.opacity = '1';
-                        table.innerHTML = '';
-                        if(response.length != 0) {
-                            document.querySelector('.no-items').style.display = 'none';
-                            response.forEach((product, index) => {
-                                let row = document.createElement('tr');
-                                row.innerHTML += `
-                                    <td>${index+1}</td>
-                                    <td>${product.describtion}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.tax}</td>
-                                    <td>${product.total}</td>
-                                `;
-                                table.appendChild(row)
-                            });
-                        } else {
-                            document.querySelector('.panel-table div table').style.opacity = '0';
-                            document.querySelector('.no-items').style.display = 'block';
-                        }
-                    }
-                });
-            })
-
-
-            // Filter Products With Size
-            $('.filter-colors').on('click', function(e) {
-                e.preventDefault();
-
-                let color = document.querySelector('#color').value;
-                console.log(color);
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    type: "POST",
-                    url: '{{route("dashboard.filter-products-color")}}',
-                    data: { color: color },
-                    success: function(response) {
-                        console.log(response);
-                        table = document.querySelector('.panel-table div table tbody');
-                        document.querySelector('.panel-table div table').style.opacity = '1';
-                        table.innerHTML = '';
-                        if(response.length != 0) {
-                            document.querySelector('.no-items').style.display = 'none';
-                            response.forEach((product, index) => {
-                                let row = document.createElement('tr');
-                                row.innerHTML += `
-                                    <td>${index+1}</td>
-                                    <td>${product.describtion}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.tax}</td>
-                                    <td>${product.total}</td>
-                                `;
-                                table.appendChild(row)
-                            });
-                        } else {
-                            document.querySelector('.panel-table div table').style.opacity = '0';
-                            document.querySelector('.no-items').style.display = 'block';
-                        }
-                    }
-                });
-            })
-
-/* ==================================================================================================
-==================================== Set Select Boxes ===============================================
-================================================================================================== */
-
-            // Set the brands after choosing the category ID
-            let category_ID = document.querySelector('#category_id');
-            $(category_ID).on('change', function(e) {
-                console.log(category_ID.value);
-                if($(this).val() != '') {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        type: "POST",
-                        url: '{{route("dashboard.filter-brands-by-category-id")}}',
-                        data: { category_id: category_ID.value },
-                        success: function(response) {
-                            let brandSelect = document.querySelector('#brand_id');
-                            brandSelect.innerHTML = '<option value=""></option>';
-                            response.forEach((brand, index) => {
-                                brandSelect.innerHTML += `
-                                    <option value="${brand.id}">${brand.brand_name}</option>
-                                `;
-                            });
-                            brandSelect.disabled = false;
-                            
-                        }
-                    });
-                } else {
-                    let brandSelect = document.querySelector('#brand_id');
-                    brandSelect.innerHTML = '';
-                    brandSelect.disabled = true;
-
-                    let modelSelect = document.querySelector('#model_id');
-                    modelSelect.innerHTML = '';
-                    modelSelect.disabled = true;
-
-                }
-            });
-
-            // Set The models after choosing the Brand ID
-            let modal_brand_ID = document.querySelector('.modal_brand_id');
-            $(modal_brand_ID).on('change', function(e) {
-                console.log(modal_brand_ID.value);
-                if($(this).val() != '') {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        type: "POST",
-                        url: '{{route("dashboard.filter-models-by-brand-id")}}',
-                        data: { brand_id: modal_brand_ID.value },
-                        
-                        success: function(response) {
-                            let modelsSelect = document.querySelector('#model_id');
-                            modelsSelect.innerHTML = '<option value=""></option>';
-                            response.forEach((model, index) => {
-                                modelsSelect.innerHTML += `
-                                    <option value="${model.id}">${model.model_id}</option>
-                                `;
-                            });
-                            modelsSelect.disabled = false;
-                            
-                        }
-                    });
-                } else {
-                    let modelsSelect = document.querySelector('#model_id');
-                    modelsSelect.innerHTML = '';
-                    modelsSelect.disabled = true;
-                }
-            });
             
-            // Hide Tableon modal closing
+            // On Changing Category Select Box
+            let categorySelector = document.querySelector('#category_id');
+            $(categorySelector).on('change', function(e) {
+                console.log(categorySelector.value);
+                let brand_input = document.querySelector('#brand_input');
+                brand_input.value = '';
+                // Showing Filters Container
+                if($(this).val() != '') {
+                    let flitersContainer = document.querySelector('.filters-container');
+                    flitersContainer.style.display = 'block';
+                }
+
+                // Get All Brands Under Certain Category And Set Them In the PickUp Values Section
+                $('.filter-brands').on('click', function(e) {
+                    e.preventDefault();
+                    let brand_value = document.querySelector('#brand_input').value;
+
+                    if(brand_value != '') { // Get all Products With this brand name
+                        
+                        let brand_id = brand_input.getAttribute('data-id');
+                        let category_id = categorySelector.value;
+
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            type: "POST",
+                            url: '{{route("dashboard.filter-products-by-category-id-and-brandID")}}',
+                            data: { category_id: category_id, brand_id: brand_id },
+                            success: function(response) {
+                                console.log(response);
+                                table = document.querySelector('.panel.right .panel-body table tbody');
+                                document.querySelector('.panel.right .panel-body table').style.opacity = '1';
+                                table.innerHTML = '';
+                                if(response.length != 0) {
+                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
+                                    response.forEach((brand, index) => {
+                                        let row = document.createElement('tr');
+                                        row.innerHTML += `
+                                            <td>
+                                                <a href="#" class="translate-brand"><i class="fa fa-arrows-h"></i></a>
+                                                <p class="text-center"><strong data-id="${ brand.id }">${ brand.brand_name }</strong></p>
+                                            </td>
+                                        `;
+                                        table.appendChild(row)
+                                    });
+                                } else {
+                                    document.querySelector('.panel.right .panel-body table').style.opacity = '0';
+                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
+                                }
+                            }
+                        });
+
+
+                    } else { // Get All Brands And Set Them Under The Pickup Values Section
+                        category_ID = document.querySelector('#category_id').value;
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            type: "POST",
+                            url: '{{route("dashboard.filter-brands-by-category-id")}}',
+                            data: { category_id: category_ID },
+                            success: function(response) {
+                                console.log(response);
+                                table = document.querySelector('.panel.right .panel-body table tbody');
+                                document.querySelector('.panel.right .panel-body table').style.opacity = '1';
+                                table.innerHTML = '';
+                                if(response.length != 0) {
+                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
+                                    response.forEach((brand, index) => {
+                                        let row = document.createElement('tr');
+                                        row.innerHTML += `
+                                            <td>
+                                                <a href="#" class="translate-brand"><i class="fa fa-arrows-h"></i></a>
+                                                <p class="text-center"><strong data-id="${ brand.id }">${ brand.brand_name }</strong></p>
+                                            </td>
+                                        `;
+                                        table.appendChild(row)
+                                    });
+                                } else {
+                                    document.querySelector('.panel.right .panel-body table').style.opacity = '0';
+                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
+                                }
+                            }
+                        });
+
+                    }
+                });
+                
+            });
+
+            // Translate Brand to left box
+            let brandTable = document.querySelector('.panel.right .panel-body table');
+            brandTable.addEventListener('click', function(e) {
+                console.log(e.target.tagName)
+                if(e.target.tagName == 'I') {
+                    let brandValue = e.target.parentElement.nextSibling.nextSibling.firstChild;
+                    let brandID = brandValue.getAttribute('data-id');
+                    console.log(brandValue.innerText, brandID);
+
+                    let brandSelect = document.querySelector('#brand_input');
+                    brandSelect.value = brandValue.innerText;
+                    brandSelect.setAttribute('data-id', brandID);
+                }
+            });
+
+            // Hide Products Table on modal closing
             $('#myModal, #updateModal').on('hidden.bs.modal', function (e) {
                 document.querySelector('.panel-table div table').style.opacity = '0';
             })
         });
 
+        
    </script>
 
 @stop

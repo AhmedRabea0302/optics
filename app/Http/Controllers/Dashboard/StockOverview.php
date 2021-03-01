@@ -77,6 +77,14 @@ class StockOverview extends Controller
         }
     }
     
+    // Filter Products By Category And Brand
+    public function filterProductsByCategoryAndBrand(Request $request) {
+        $products = Product::where(['category_id' => $request->category_id, 'brand_id' => $request->brand_id])->get();
+
+        if($products) {
+            return response()->json($products);
+        }
+    }
     
     // Filter Brands by Category ID
     public function filterBrandsByCatId(Request $request) {

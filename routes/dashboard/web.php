@@ -31,6 +31,8 @@
             Route::post('filter-products-by-size/' ,'StockOverview@filterBySize')->name('filter-products-size');
             Route::post('filter-products-by-color/' ,'StockOverview@filterByColor')->name('filter-products-color');
 
+            Route::post('filter-products-by-category-and-brand/' ,'StockOverview@filterProductsByCategoryAndBrand')->name('filter-products-by-category-id-and-brandID');
+
             Route::post('filter-brands-bycatid/' ,'StockOverview@filterBrandsByCatId')->name('filter-brands-by-category-id');
             Route::post('filter-brands-bybrandid/' ,'StockOverview@filterModelsByBrandId')->name('filter-models-by-brand-id');
         
