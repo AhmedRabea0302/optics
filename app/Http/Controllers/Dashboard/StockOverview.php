@@ -134,62 +134,11 @@ class StockOverview extends Controller
 
     public function fullSearch(Request $request)
     {
-//        $products = DB::select('select * from products where (category_id = :category_id AND brand_id = :brand_id AND model_id = :model_id)',
-//        ['category_id' => $request->category_id, 'brand_id' => $request->brand_id, 'model_id' => $request->model_id]);
-//
         $category_id = $request->category_id;
         $model_id = $request->model_id;
         $brand_id = $request->brand_id;
         $size_id = $request->size_id;
         $color_id = $request->color_id;
-
-//        $products = Product::where(function ($q) use ($category_id, $brand_id, $model_id) {
-//            $q->where('scategory_id', $category_id);
-//            $q->where('brand_id', $brand_id);
-//            $q->where('model_id', $model_id);
-//        })->orwhere(function ($q) use ($category_id, $brand_id) {
-//            $q->where('category_id', $category_id);
-//            $q->where('brand_id', $brand_id);
-//        })->orwhere(function ($q) use ($category_id, $model_id) {
-//            $q->where('category_id', $category_id);
-//            $q->where('model_id', $model_id);
-//        })->get();
-//        $products = '';
-//        if ($category_id && $brand_id)
-//            $products = Product::where('category_id', $category_id)->where('brand_id', $brand_id)->get();
-//
-//        if ($category_id && $model_id)
-//            $products = Product::where('category_id', $category_id)->where('model_id', $model_id)->get();
-//
-//        if ($category_id && $size_id)
-//            $products = Product::where('category_id', $category_id)->where('size_id', $size_id)->get();
-//
-//        if ($category_id && $color_id)
-//            $products = Product::where('category_id', $category_id)->where('color_id', $color_id)->get();
-//
-//        if ($category_id && $brand_id && $model_id && $size_id && $color_id)
-//            $products = Product::where('category_id', $category_id)->where('brand_id', $brand_id)->where('model_id', $model_id)->where('size_id', $size_id)->where('color_id', $color_id)->get();
-//
-//        if ($category_id && $brand_id && $model_id && $size_id)
-//            $products = Product::where('category_id', $category_id)->where('brand_id', $brand_id)->where('model_id', $model_id)->where('size_id', $size_id)->get();
-//
-//        if ($category_id && $brand_id && $model_id)
-//            $products = Product::where('category_id', $category_id)->where('brand_id', $brand_id)->where('model_id', $model_id)->get();
-//
-//        if ($category_id && $brand_id && $size_id)
-//            $products = Product::where('category_id', $category_id)->where('brand_id', $brand_id)->where('size_id', $size_id)->get();
-//
-//        if ($category_id && $brand_id && $color_id)
-//            $products = Product::where('category_id', $category_id)->where('brand_id', $brand_id)->where('color_id', $color_id)->get();
-//
-//        if ($category_id && $model_id && $color_id)
-//            $products = Product::where('category_id', $category_id)->where('model_id', $model_id)->where('color_id', $color_id)->get();
-//
-//        if ($category_id && $model_id && $size_id)
-//            $products = Product::where('category_id', $category_id)->where('model_id', $model_id)->where('size_id', $size_id)->get();
-//
-//        if ($category_id && $color_id && $size_id)
-//            $products = Product::where('category_id', $category_id)->where('color_id', $color_id)->where('size_id', $size_id)->get();
 
         $products = Product::where('category_id', $category_id);
 
