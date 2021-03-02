@@ -555,7 +555,6 @@
                         console.log(response);
                         if (response.length == 0) {
                             let table = document.querySelector('.panel-table');
-                            table.querySelector('table tbody').style.opacity = '0';
                             table.querySelector('.no-items').style.display = 'block';
                         } else {
                             let table = document.querySelector('.panel-table table');
