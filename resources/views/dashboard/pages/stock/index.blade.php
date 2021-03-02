@@ -535,8 +535,8 @@
                 let category_id = document.querySelector('#category_id').value;
                 let brand_input_id = document.querySelector('#brand_input').getAttribute('data-id');
                 let model_input_id = document.querySelector('#model_input').getAttribute('data-id');
-                // let color  ;
-                // let size
+                let color = document.querySelector('#color').value;
+                let size = document.querySelector('#size').value;
 
                 $.ajax({
                     headers: {
@@ -544,11 +544,19 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.full-search")}}',
-                    data: { category_id: category_id, brand_id: brand_input_id, model_id: model_input_id },
+                    data: { 
+                        category_id: category_id,
+                        brand_id: brand_input_id,
+                        model_id: model_input_id,
+                        color: color,
+                        size: size 
+                    },
                     success: function(response) {
                         console.log(response);
                         if (response.length == 0) {
-                            
+                            let table = document.querySelector('.panel-table');
+                            table.querySelector('table tbody').style.opacity = '0';
+                            table.querySelector('.no-items').style.display = 'block';
                         } else {
                             let table = document.querySelector('.panel-table table');
                             table.querySelector('tbody').innerHTML = '';

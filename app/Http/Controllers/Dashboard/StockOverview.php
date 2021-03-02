@@ -124,16 +124,22 @@ class StockOverview extends Controller
         $cat_id = $request->category_id;
         $brand_id = $request->brand_id;
         $model_id = $request->model_id;
+        $size = $request->size;
+        $color = $request->color; 
 
         $query = 'SELECT * From products WHERE(' 
         . ( $cat_id ? 'category_id = :category_id' : '' ) 
         . ( $brand_id ? ' AND brand_id = :brand_id' : '') 
-        . ( $model_id ? ' AND model_id = :model_id' : '') . ')';
-
+        . ( $model_id ? ' AND model_id = :model_id' : '') 
+        . ( $size ? ' AND size = :size' : '')
+        . ( $color ? ' AND color = :color' : '') . ')';
+        
         $parmetersArray = Array( 
             'category_id' => $cat_id,
             (!$brand_id) ? NULL : 'brand_id' => $brand_id,
-            (!$model_id) ? NULL : 'model_id' => $model_id
+            (!$model_id) ? NULL : 'model_id' => $model_id,
+            (!$color) ? NULL : 'color' => $color,
+            (!$size) ? NULL : 'size' => $size
         );
 
         $this->removeEmptyValues($parmetersArray);
