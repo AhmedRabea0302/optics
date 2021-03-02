@@ -24,21 +24,23 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="firstname">Customer ID</label>
-                            <input type="text" class="form-control" name="customer_id" style="font-weight: bold "
+                            <input type="text" class="form-control" name="customer_id" id="customer_id"
+                                   style="font-weight: bold "
                                    value="{{ $customer->customer_id }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="lastname">Customer Type</label>
-                            <input type="text" class="form-control" name="customry_type" value="Normal" readonly>
+                            <input type="text" class="form-control" name="customry_type" value="Normal"
+                                   id="customry_type" readonly>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <input type="checkbox" class="form-control"
-                                   name="points" {{ $customer->moftah_club == 1 ? 'checked' : '' }}>
+                                   name="points" id="points" {{ $customer->moftah_club == 1 ? 'checked' : '' }}>
                             <label for="lastname"> Gain Points</label>
                         </div>
                     </div>
@@ -50,7 +52,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <select name="title" id="title" class="form-control" readonly>
+                            <select name="title" id="title" class="form-control" id="title" readonly>
                                 <option value="Dr" {{ $customer->title == 'Dr' ? 'selected' : '' }}>Dr.</option>
                                 <option value="Her Highness" {{ $customer->title == 'Her Highness' ? 'selected' : '' }}>
                                     Her Highness
@@ -66,7 +68,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="lastname">English Name</label>
-                            <input type="text" class="form-control" name="english_name"
+                            <input type="text" class="form-control" name="english_name" id="english_name"
                                    value="{{ $customer->english_name }}" readonly>
                         </div>
                     </div>
@@ -74,7 +76,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="lastname"> Local Name</label>
-                            <input type="text" class="form-control" name="local_name"
+                            <input type="text" class="form-control" name="local_name" id="local_name"
                                    value="{{  $customer->local_name }}" readonly>
                         </div>
                     </div>
@@ -95,6 +97,7 @@
                     <div class="col-md-3">
                         <label for="birth date">Birth Date</label>
                         <input class="form-control" style="font-family: sans-serif" type="date" name="birth_date"
+                               id="birth_date"
                                value="{{ $customer->birth_date }}" readonly>
                     </div>
 
@@ -116,7 +119,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="nationality">Nationality</label>
-                            <select name="nationality" id="nationality" class="form-control" readonly>
+                            <select name="nationality" id="nationality" class="form-control" id="nationality" readonly>
                                 <option value="afghan">Afghan</option>
                                 <option value="albanian">Albanian</option>
                                 <option value="algerian">Algerian</option>
@@ -317,7 +320,7 @@
                         <div class="form-group">
                             <label for="lastname"> National ID</label>
                             <input type="text" class="form-control" name="national_id"
-                                   value="{{ $customer->national_id }}" readonly>
+                                   value="{{ $customer->national_id }}" id="national_id" readonly>
                         </div>
                     </div>
                 </div>
@@ -326,7 +329,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="age"> Age</label>
-                            <input type="text" class="form-control" name="age" value="{{ $customer->age }}" readonly>
+                            <input type="text" class="form-control" name="age" value="{{ $customer->age }}" id="age"
+                                   readonly>
                         </div>
                     </div>
                 </div>
@@ -345,7 +349,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="preferedlang">Country</label>
-                        <select id="country" name="country" class="form-control" readonly>
+                        <select id="country" name="country" id="country" class="form-control" readonly>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Åland Islands">Åland Islands</option>
                             <option value="Albania">Albania</option>
@@ -606,7 +610,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="preferedlang">City</label>
-                        <select name="city" id="city" class="form-control" readonly>
+                        <select name="city" id="city" id="city" class="form-control" readonly>
                             <option value="Al Ghuwayriyah">Al Ghuwayriyah</option>
                             <option value="Al Jumayliyah">Al Jumayliyah</option>
                             <option value="Al Khawr">Al Khawr</option>
@@ -634,7 +638,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="notes">Notes</label>
-                        <textarea class="form-control" name="notes" id="Notes" cols="30"
+                        <textarea class="form-control" name="notes" id="notes" cols="30"
                                   rows="3" readonly>{!!  $customer->notes !!}</textarea>
                     </div>
                 </div>
@@ -653,7 +657,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="firstname">Dial Code</label>
-                        <input type="text" class="form-control" name="dial_code" value="974" readonly>
+                        <input type="text" class="form-control" name="dial_code" value="974" id="dial_code" readonly>
                     </div>
                 </div>
 
@@ -663,7 +667,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                             <input type="text" class="form-control" name="mobile_number"
-                                   value="{{ $customer->mobile_number }}" readonly>
+                                   value="{{ $customer->mobile_number }}" id="mobile_number" readonly>
                         </div>
                     </div>
                 </div>
@@ -673,7 +677,8 @@
                         <label for="lastname">Email</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <input type="text" class="form-control" name="email" value="{{ $customer->email }}" readonly>
+                            <input type="text" class="form-control" name="email" value="{{ $customer->email }}"
+                                   id="email" readonly>
                         </div>
                     </div>
                 </div>
@@ -695,7 +700,7 @@
                         <label for="office">Office Number</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-flag"></i></span>
-                            <input type="text" class="form-control" name="office_number"
+                            <input type="text" class="form-control" name="office_number" id="office_number"
                                    value="{!! $customer->office_number !!}" readonly>
                         </div>
                     </div>
@@ -703,14 +708,30 @@
             </div>
         </div>
 
-{{--        <div class="box-footer">--}}
-{{--            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Update Customer</button>--}}
-{{--        </div>--}}
+        <div class="row">
+            <div class="col-md-2">
+                <div class="box-footer">
+                    <button type="button" class="btn btn-primary show_customer"><i class="fa fa-share"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary update_customer"><i class="fa fa-plus"></i>Update
+                        Customer
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     </form>
-
+@endsection
 @section('scripts')
     <script>
+        $('.show_customer').on('click', function () {
+            $('#office_number,#receive_nots,#email,#mobile_number,#dial_code,#age,#national_id,#nationality,#prefered_language,#birth_date,#gender,#local_name,#english_name,#title,#points,#customry_type,#customer_id,#address,#country,#city,#notes').attr('readonly', false);
+        });
+
         $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
             checkboxClass: 'icheckbox_flat-red',
             radioClass: 'iradio_flat-red'
@@ -734,7 +755,5 @@
         });
     </script>
 
-
-@endsection
 
 @endsection
