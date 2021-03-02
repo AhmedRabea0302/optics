@@ -131,31 +131,46 @@ class StockOverview extends Controller
         }
     }
 
-
     public function fullSearch(Request $request)
     {
-        $category_id = $request->category_id;
-        $model_id = $request->model_id;
+
+        $cat_id = $request->category_id;
         $brand_id = $request->brand_id;
-        $size_id = $request->size_id;
-        $color_id = $request->color_id;
+        $model_id = $request->model_id;
 
-        $products = Product::where('category_id', $category_id);
+        $query = 'SELECT * From products WHERE('
+            . ($cat_id ? 'category_id = :category_id' : '')
+            . ($brand_id ? ' AND brand_id = :brand_id' : '')
+            . ($model_id ? ' AND model_id = :model_id' : '') . ')';
 
-        if (isset($brand_id))
-            $products = $products->where('brand_id', $brand_id);
+        $parmetersArray = array(
+            'category_id' => $cat_id,
+            (!$brand_id) ? NULL : 'brand_id' => $brand_id,
+            (!$model_id) ? NULL : 'model_id' => $model_id
+        );
 
-        if (isset($model_id))
-            $products = $products->where('model_id', $model_id);
+        $this->removeEmptyValues($parmetersArray);
+        $products = DB::select($query, $parmetersArray);
 
-        if (isset($size_id))
-            $products = $products->where('size_id', $size_id);
-
-        if (isset($color_id))
-            $products = $products->where('color_id', $color_id);
-
-        $products = $products->get();
+        foreach ($products as $product) {
+            $branch_name = Branch::select('branch_name')->where('id', $product->branch_id)->first();
+            $product->branch_name = $branch_name;
+        }
 
         return response()->json($products);
+    }
+
+    // To Remove ements with Empy Values from an array
+    function removeEmptyValues(array &$array)
+    {
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $value = removeEmptyValues($value);
+            }
+            if (empty($value)) {
+                unset($array[$key]);
+            }
+        }
+        return $array;
     }
 }

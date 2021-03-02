@@ -246,7 +246,7 @@
                                             <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                         @endforeach
                                     </select>
-                                    <button class="btn btn-success filter-categories btn-flat"><i class="fa fa-search"></i></button>
+                                    <button class="btn btn-success full-search btn-flat"><i class="fa fa-search"></i></button>
                                     <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i></button>
                                   </div>
 
@@ -311,14 +311,14 @@
                     <div class="row">
                         <div class="panel-table">
                             <div class="col-md-12">
-                                <table class="table table-bordered table-hover">
+                                <table class="table table-bordered table-hover" style="opacity: 0">
                                     <thead>
                                     <tr>
                                         <th>ID#</th>
+                                        <th>Branch</th>
                                         <th>Description</th>
                                         <th>Price</th>
-                                        <th>Tax</th>
-                                        <th>Total</th>
+                                        <th>Stock</th>
                                     </tr>
                                     </thead>
 
@@ -426,41 +426,39 @@
                     e.preventDefault();
                     let brand_value = document.querySelector('#brand_input').value;
 
-                    if(brand_value == '') { // Get all Brands Under The Choosed Category
+                    // Get all Brands Under The Choosed Category
 
-                        category_ID = document.querySelector('#category_id').value;
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            type: "POST",
-                            url: '{{route("dashboard.filter-brands-by-category-id")}}',
-                            data: { category_id: category_ID },
-                            success: function(response) {
-                                console.log(response);
-                                table = document.querySelector('.panel.right .panel-body table tbody');
-                                document.querySelector('.panel.right .panel-body table').style.opacity = '1';
-                                table.innerHTML = '';
-                                if(response.length != 0) {
-                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
-                                    response.forEach((brand, index) => {
-                                        let row = document.createElement('tr');
-                                        row.innerHTML += `
-                                            <td>
-                                                <a href="#" class="translate-brand translate"><i class="fa fa-arrows-h"></i></a>
-                                                <p class="text-center"><strong data-id="${ brand.id }">${ brand.brand_name }</strong></p>
-                                            </td>
-                                        `;
-                                        table.appendChild(row)
-                                    });
-                                } else {
-                                    document.querySelector('.panel.right .panel-body table').style.opacity = '0';
-                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
-                                }
+                    category_ID = document.querySelector('#category_id').value;
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        type: "POST",
+                        url: '{{route("dashboard.filter-brands-by-category-id")}}',
+                        data: { category_id: category_ID },
+                        success: function(response) {
+                            console.log(response);
+                            table = document.querySelector('.panel.right .panel-body table tbody');
+                            document.querySelector('.panel.right .panel-body table').style.opacity = '1';
+                            table.innerHTML = '';
+                            if(response.length != 0) {
+                                document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
+                                response.forEach((brand, index) => {
+                                    let row = document.createElement('tr');
+                                    row.innerHTML += `
+                                        <td>
+                                            <a href="#" class="translate-brand translate"><i class="fa fa-arrows-h"></i></a>
+                                            <p class="text-center"><strong data-id="${ brand.id }">${ brand.brand_name }</strong></p>
+                                        </td>
+                                    `;
+                                    table.appendChild(row)
+                                });
+                            } else {
+                                document.querySelector('.panel.right .panel-body table').style.opacity = '0';
+                                document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
                             }
-                        });
-
-                    } 
+                        }
+                    });
                 });
 
                 // Filter Models
@@ -468,42 +466,41 @@
                     e.preventDefault();
                     let model_value = document.querySelector('#model_input').value;
                     console.log('HHHH');
-                    if(model_value == '') { // Get all Models Under The Choosed Brand
+                    // Get all Models Under The Choosed Brand
 
-                        category_ID = document.querySelector('#category_id').value;
-                        brand_ID = document.querySelector('#brand_input').getAttribute('data-id');
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            type: "POST",
-                            url: '{{route("dashboard.filter-models-by-category-and-brand-id")}}',
-                            data: { category_id: category_ID, brand_id: brand_ID },
-                            success: function(response) {
-                                console.log(response);
-                                table = document.querySelector('.panel.right .panel-body table tbody');
-                                document.querySelector('.panel.right .panel-body table').style.opacity = '1';
-                                table.innerHTML = '';
-                                if(response.length != 0) {
-                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
-                                    response.forEach((model, index) => {
-                                        let row = document.createElement('tr');
-                                        row.innerHTML += `
-                                            <td>
-                                                <a href="#" class="translate-model translate"><i class="fa fa-arrows-h"></i></a>
-                                                <p class="text-center"><strong data-id="${ model.id }">${ model.model_id }</strong></p>
-                                            </td>
-                                        `;
-                                        table.appendChild(row)
-                                    });
-                                } else {
-                                    document.querySelector('.panel.right .panel-body table').style.opacity = '0';
-                                    document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
-                                }
+                    category_ID = document.querySelector('#category_id').value;
+                    brand_ID = document.querySelector('#brand_input').getAttribute('data-id');
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        type: "POST",
+                        url: '{{route("dashboard.filter-models-by-category-and-brand-id")}}',
+                        data: { category_id: category_ID, brand_id: brand_ID },
+                        success: function(response) {
+                            console.log(response);
+                            table = document.querySelector('.panel.right .panel-body table tbody');
+                            document.querySelector('.panel.right .panel-body table').style.opacity = '1';
+                            table.innerHTML = '';
+                            if(response.length != 0) {
+                                document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
+                                response.forEach((model, index) => {
+                                    let row = document.createElement('tr');
+                                    row.innerHTML += `
+                                        <td>
+                                            <a href="#" class="translate-model translate"><i class="fa fa-arrows-h"></i></a>
+                                            <p class="text-center"><strong data-id="${ model.id }">${ model.model_id }</strong></p>
+                                        </td>
+                                    `;
+                                    table.appendChild(row)
+                                });
+                            } else {
+                                document.querySelector('.panel.right .panel-body table').style.opacity = '0';
+                                document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
                             }
-                        });
+                        }
+                    });
 
-                    } 
                 });
                 
             });
@@ -533,13 +530,13 @@
                 }
             });
 
-            $('.filter-categories').on('click', function(e) {
+            // Full Search
+            $('.full-search').on('click', function(e) {
                 let category_id = document.querySelector('#category_id').value;
                 let brand_input_id = document.querySelector('#brand_input').getAttribute('data-id');
                 let model_input_id = document.querySelector('#model_input').getAttribute('data-id');
                 // let color  ;
                 // let size
-
 
                 $.ajax({
                     headers: {
@@ -550,25 +547,26 @@
                     data: { category_id: category_id, brand_id: brand_input_id, model_id: model_input_id },
                     success: function(response) {
                         console.log(response);
-                        // table = document.querySelector('.panel.right .panel-body table tbody');
-                        // document.querySelector('.panel.right .panel-body table').style.opacity = '1';
-                        // table.innerHTML = '';
-                        // if(response.length != 0) {
-                        //     document.querySelector('.panel.right .panel-body .no-items').style.display = 'none';
-                        //     response.forEach((model, index) => {
-                        //         let row = document.createElement('tr');
-                        //         row.innerHTML += `
-                        //             <td>
-                        //                 <a href="#" class="translate-model translate"><i class="fa fa-arrows-h"></i></a>
-                        //                 <p class="text-center"><strong data-id="${ model.id }">${ model.model_id }</strong></p>
-                        //             </td>
-                        //         `;
-                        //         table.appendChild(row)
-                        //     });
-                        // } else {
-                        //     document.querySelector('.panel.right .panel-body table').style.opacity = '0';
-                        //     document.querySelector('.panel.right .panel-body .no-items').style.display = 'block';
-                        // }
+                        if (response.length == 0) {
+                            
+                        } else {
+                            let table = document.querySelector('.panel-table table');
+                            table.querySelector('tbody').innerHTML = '';
+                            table.style.opacity = '1';
+                            // set table TDs
+                            response.forEach((resp, index) => {
+                                let row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${index + 1}</td>
+                                    <td>${resp.branch_name['branch_name']}</td>
+                                    <td>${resp.describtion}</td>
+                                    <td>${resp.total}</td>
+                                    <td>${resp.amount}</td>
+                                `
+                                table.querySelector('tbody').appendChild(row);
+                            });
+                            
+                        }
                     }
                 });
 
@@ -580,12 +578,14 @@
             $('.reset-brand').on('click', function(e) {
                 e.preventDefault();
                 $('#brand_input').val('');
+                $('#brand_input').attr('data-id', '');
             });
 
             // Reset Model Input
             $('.reset-model').on('click', function(e) {
                 e.preventDefault();
                 $('#model_input').val('');
+                $('#model_input').attr('data-id', '');
             });
 
             // Hide Products Table on modal closing
