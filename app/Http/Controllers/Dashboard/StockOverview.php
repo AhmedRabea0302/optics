@@ -120,9 +120,14 @@ class StockOverview extends Controller
     }
 
     public function fullSearch(Request $request) {
-        $products = DB::select('select * from products where (category_id = :category_id AND brand_id = :brand_id AND model_id = :model_id)', 
-        ['category_id' => $request->category_id, 'brand_id' => $request->brand_id, 'model_id' => $request->model_id]);
-        
+        // $products = DB::select('select * from products where(category_id = :category_id OR :category_id IS NULL) AND (brand_id = :brand_id OR :brand_id IS NULL) AND (model_id = :model_id OR :model_id IS NULL)', 
+        // ['category_id' => $request->category_id, 'brand_id' => $request->brand_id, 'model_id' => $request->model_id] );
+        // $products = DB::Select('select * from products where((category_id = :category_id) OR (:category_id IS NULL))', ['category_id' => $request->category_id]); 
+        $products = Product::where([
+            [ 'category_id', '=', $request->category_id ],
+            [ 'brand_id', '=', $request->brand_id ],
+            [ 'model_id', '=', $request->model_id ],
+        ])->get();
         return response()->json($products);
     }
 }
