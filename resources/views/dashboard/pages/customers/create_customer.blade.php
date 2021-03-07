@@ -675,7 +675,11 @@
                 </div>
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>Save</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Save</button>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-list-alt"></i> Save & Create Invoice</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i> Save & Create Eye Test</button>
+                    </div>
                 </div>
             </div>
         </form>
