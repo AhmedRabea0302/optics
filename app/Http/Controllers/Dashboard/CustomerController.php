@@ -130,4 +130,13 @@ class CustomerController extends Controller
 
         return view('dashboard.pages.customers.show_customer')->with(compact('customer'));
     }
+
+    public function showCustomerInvoice(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+
+        $customers = Customer::select(['customer_id','english_name','local_name'])->get();
+
+        return view('dashboard.pages.customers.show_customer_invoice')->with(compact('customer','customers'));
+    }
 }
