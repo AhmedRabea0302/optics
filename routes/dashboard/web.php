@@ -23,6 +23,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
     Route::get('delete-customer/{id}' ,'CustomerController@deleteCustomer')->name('delete-customer');
     Route::get('show-customer/{id}' ,'CustomerController@showCustomer')->name('show-customer');
     Route::get('show-customer-invoice/{id}' ,'CustomerController@showCustomerInvoice')->name('show-customer-invoice');
+    Route::get('show-customer-details' ,'CustomerController@getCustomerDetails')->name('get-customer-details');
 
     // Stock Overview Routes
     Route::get('stock-overview/' ,'StockOverview@index')->name('get-stock-overview');
