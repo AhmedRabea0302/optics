@@ -11,9 +11,15 @@ use App\Customer;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::latest()->paginate(2);
+        $customers = Customer::when($request->search, function($query) use ($request) {
+            return $query->where('english_name', 'like', '%' . $request->search . '%')
+            ->orWhere('local_name', 'like', '%' . $request->search . '%')
+            ->orWhere('national_id', 'like', '%' . $request->search . '%')
+            ->orWhere('mobile_number', 'like', '%' . $request->search . '%')
+            ->orWhere('customer_id', 'like', '%' . $request->search . '%');
+        })->latest()->paginate(2);
         return view('dashboard.pages.customers.all-customers', compact('customers'));
     }
 

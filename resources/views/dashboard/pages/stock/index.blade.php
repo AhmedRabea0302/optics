@@ -311,7 +311,7 @@
                     <div class="row">
                         <div class="panel-table">
                             <div class="col-md-12">
-                                <table class="table table-bordered table-hover" style="opacity: 0">
+                                <table class="table table-bordered table-hover" style="display: none">
                                     <thead>
                                     <tr>
                                         <th>ID#</th>
@@ -556,9 +556,11 @@
                         if (response.length == 0) {
                             let table = document.querySelector('.panel-table');
                             table.querySelector('.no-items').style.display = 'block';
+                            table.querySelector('table').style.display = 'none';
+
                         } else {
-                            let table = document.querySelector('.panel-table table');
-                            table.querySelector('tbody').innerHTML = '';
+                            let table = document.querySelector('.panel-table');
+                            table.querySelector('table tbody').innerHTML = '';
                             table.style.opacity = '1';
                             // set table TDs
                             response.forEach((resp, index) => {
@@ -570,9 +572,10 @@
                                     <td>${resp.total}</td>
                                     <td>${resp.amount}</td>
                                 `
-                                table.querySelector('tbody').appendChild(row);
+                                table.querySelector('table tbody').appendChild(row);
                             });
-                            
+                            table.querySelector('table').style.display = 'inline-table';
+                            table.querySelector('.no-items').style.display = 'none';
                         }
                     }
                 });
