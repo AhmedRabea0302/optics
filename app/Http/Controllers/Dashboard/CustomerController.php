@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Brand;
 use App\Category;
+use App\Doctor;
 use App\glassModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -146,11 +147,13 @@ class CustomerController extends Controller
 
         $customers = Customer::select(['customer_id', 'english_name', 'local_name'])->get();
 
+        $doctors = Doctor::select(['id', 'name', 'code'])->get();
+
         $categories = Category::all();
         $brands = Brand::all();
         $models = glassModel::all();
 
-        return view('dashboard.pages.customers.show_customer_invoice')->with(compact('customer', 'customers', 'categories', 'brands', 'models'));
+        return view('dashboard.pages.customers.show_customer_invoice')->with(compact('customer', 'customers', 'categories', 'brands', 'models','doctors'));
     }
 
     public function getCustomerDetails(Request $request)

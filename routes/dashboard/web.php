@@ -14,6 +14,16 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
 
     Route::get('delete-admin/{id}' ,'UsersController@deleteAdmin')->name('delete-admin');
 
+    //doctors routes
+    Route::get('show-all-doctors','DoctorsController@index')->name('get-all-doctors');
+    Route::get('get-doctor','DoctorsController@getDoctor')->name('get-add-doctor');
+    Route::post('add-doctor','DoctorsController@addDoctor')->name('post-add-doctor');
+    Route::get('show-doctor/{id}','DoctorsController@showDoctor')->name('show-doctor');
+    Route::get('update-doctor/{id}' ,'DoctorsController@getUpdateDoctor')->name('get-update-doctor');
+    Route::post('update-doctor/{id}' ,'DoctorsController@postUpdateDoctor')->name('post-update-doctor');
+    Route::get('delete-doctor/{id}' ,'DoctorsController@deleteDoctor')->name('delete-doctor');
+    Route::get('show-doctor-details' ,'DoctorsController@getDoctorDetails')->name('get-doctor-details');
+
     // Customers Routes
     Route::get('all-customers' ,'CustomerController@index')->name('get-all-customers');
     Route::get('add-customer' ,'CustomerController@getAddCustomer')->name('get-add-customer');
@@ -58,6 +68,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
     Route::get('add-product/' ,'ProductController@getAddProduct')->name('get-add-product');
     Route::post('add-product/' ,'ProductController@postAddProduct')->name('post-add-product');
     Route::post('update-product/' ,'ProductController@updateProduct')->name('update-product');
+    Route::get('show-product-details' ,'ProductController@getProductDetails')->name('get-product-details');
 
     // Brands Routes
     Route::get('all-brands/' ,'BrandController@index')->name('get-all-brands');

@@ -75,7 +75,7 @@
 
                         <div class="col-md-2">
                             <div class="form-group">
-                                <button class="btn btn-success btn-sm pull-right" data-target="#myModal"
+                                <button class="btn btn-success btn-sm pull-right" data-target="#DoctorModal"
                                         data-toggle="modal" title="Advanced Search" id="search"
                                         style="margin-top:27px;"><i class="fa fa-search"></i></button>
                             </div>
@@ -119,39 +119,29 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>NO.</th>
-                        <th>Item #</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Discount Type</th>
-                        <th>Discount</th>
-                        <th>Net</th>
-                        <th>Tax</th>
-                        <th>Total</th>
-                        <th>Stock</th>
-                        <th>Deleverd</th>
-                    </tr>
-                    </thead>
+                <div class="product_invoice_table">
+                    <table class="table table-bordered table-hover" style="opacity:0;">
+                        <thead>
+                        <tr>
+                            <th>NO.</th>
+                            <th>Item #</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Discount Type</th>
+                            <th>Discount</th>
+                            <th>Net</th>
+                            <th>Tax</th>
+                            <th>Total</th>
+                            <th>Stock</th>
+                            <th>Branch</th>
+                        </tr>
+                        </thead>
 
-                    <tbody>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    </tbody>
-                </table>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
@@ -192,6 +182,53 @@
                                             </td>
                                             <td>
                                                 {{$item->english_name.' / '.$item->local_name}}
+                                            </td>
+                                            </tbody>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Modal -->
+    <div id="DoctorModal" class="modal fade" role="dialog">
+        <div class="modal-dialog box-item">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header box-item-head">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Select Doctor</h3>
+                </div>
+
+                <div class="modal-body  box-item-content">
+                    <div class="row">
+                        <!-- Left Panel -->
+                        <div class="col-md-12">
+                            <div class="panel panel-primary">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Doctors</div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                        </tr>
+                                        </thead>
+
+                                        @foreach($doctors as $key => $item)
+                                            <tbody>
+                                            <td>
+                                                <button name="doctorId" id="doctorId" style="height: 15px;"
+                                                        value="{!! $item->id !!}"></button>
+                                                {{$item->code}}
+                                            </td>
+                                            <td>
+                                                {{$item->name}}
                                             </td>
                                             </tbody>
                                         @endforeach
@@ -323,11 +360,18 @@
                                 <table class="table table-bordered table-hover" style="opacity: 0">
                                     <thead>
                                     <tr>
-                                        <th>ID#</th>
-                                        <th>Branch</th>
+                                        <th>NO.</th>
+                                        <th>Item #</th>
                                         <th>Description</th>
+                                        <th>Quantity</th>
                                         <th>Price</th>
+                                        <th>Discount Type</th>
+                                        <th>Discount</th>
+                                        <th>Net</th>
+                                        <th>Tax</th>
+                                        <th>Total</th>
                                         <th>Stock</th>
+                                        <th>Branch</th>
                                     </tr>
                                     </thead>
 
@@ -374,6 +418,28 @@
                 });
 
             })
+
+            $(document).on('click', '#doctorId', function (e) {
+                e.preventDefault();
+                let doctor_id = $(this).val();
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: "GET",
+                    url: '{{route("dashboard.get-doctor-details")}}',
+                    data: {doctor_id: doctor_id},
+                    success: function (response) {
+                        console.log(response.doctor.name);
+                        document.getElementById('doctor_id').value = response.doctor.code;
+                        document.getElementById('doctor_name').value = response.doctor.name;
+                        $('#DoctorModal').modal('hide');
+                    }
+                });
+
+            })
+
             // On Changing Category Select Box
             let categorySelector = document.querySelector('#category_id');
             $(categorySelector).on('change', function (e) {
@@ -531,11 +597,20 @@
                             response.forEach((resp, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML = `
-                                    <td>${index + 1}</td>
-                                    <td>${resp.branch_name['branch_name']}</td>
+                                    <td><button name="productId" id="productId" style="height: 15px;"
+                                                        value="${resp.product_id}"></button>
+                                 ${index + 1}</td>
+                                    <td>${resp.product_id}</td>
                                     <td>${resp.describtion}</td>
-                                    <td>${resp.total}</td>
                                     <td>${resp.amount}</td>
+                                    <td>${resp.price}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>${resp.price}</td>
+                                    <td>${resp.price}</td>
+                                    <td>${resp.total}</td>
+                                    <td></td>
+                                    <td>${resp.branch_name['branch_name']}</td>
                                 `
                                 table.querySelector('tbody').appendChild(row);
                             });
@@ -548,6 +623,45 @@
                 console.log(category_id, brand_input_id, model_input_id)
             });
 
+            $(document).on('click', '#productId', function (e) {
+                e.preventDefault();
+                let product_id = $(this).val();
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: "GET",
+                    url: '{{route("dashboard.get-product-details")}}',
+                    data: {product_id: product_id},
+                    success: function (resp) {
+                        console.log(resp.product[0]);
+                        let table = document.querySelector('.product_invoice_table table');
+                        table.querySelector('tbody').innerHTML = '';
+                        table.style.opacity = '1';
+                        // set table TDs
+                        let row = document.createElement('tr');
+                        row.innerHTML = `
+                                    <td>${resp.product[0].id}</td>
+                                    <td>${resp.product[0].product_id}</td>
+                                    <td>${resp.product[0].describtion}</td>
+                                    <td>${resp.product[0].amount}</td>
+                                    <td>${resp.product[0].price}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>${resp.product[0].price}</td>
+                                    <td>${resp.product[0].price}</td>
+                                    <td>${resp.product[0].total}</td>
+                                    <td></td>
+                                    <td>${resp.product[0].branch_name}</td>
+                                `
+                        table.querySelector('tbody').appendChild(row);
+
+                        $('#searchModal').modal('hide');
+                    }
+                });
+
+            })
             // Reset Brand Input
             $('.reset-brand').on('click', function (e) {
                 e.preventDefault();

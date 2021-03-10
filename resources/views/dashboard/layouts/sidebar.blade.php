@@ -38,9 +38,10 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Custommers List</a></li>
+                    <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Customers List</a></li>
+                    <li><a href="{{route('dashboard.get-all-doctors')}}"><i class="fa fa-angle-double-right"></i> Doctors List</a></li>
                 </ul>
-            </li> 
+            </li>
 
             <li class="treeview {{ Request::route()->getName() == '' ? 'active' : '' }}">
                 <a href="#">
