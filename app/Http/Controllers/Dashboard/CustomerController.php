@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Brand;
+use App\Category;
+use App\Doctor;
+use App\glassModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Customer;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::latest()->paginate(2);
+        $customers = Customer::when($request->search, function($query) use ($request) {
+            return $query->where('english_name', 'like', '%' . $request->search . '%')
+            ->orWhere('local_name', 'like', '%' . $request->search . '%')
+            ->orWhere('national_id', 'like', '%' . $request->search . '%')
+            ->orWhere('mobile_number', 'like', '%' . $request->search . '%')
+            ->orWhere('customer_id', 'like', '%' . $request->search . '%');
+        })->latest()->paginate(2);
         return view('dashboard.pages.customers.all-customers', compact('customers'));
     }
 
@@ -135,8 +145,22 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
 
-        $customers = Customer::select(['customer_id','english_name','local_name'])->get();
+        $customers = Customer::select(['customer_id', 'english_name', 'local_name'])->get();
 
-        return view('dashboard.pages.customers.show_customer_invoice')->with(compact('customer','customers'));
+        $doctors = Doctor::select(['id', 'name', 'code'])->get();
+
+        $categories = Category::all();
+        $brands = Brand::all();
+        $models = glassModel::all();
+
+        return view('dashboard.pages.customers.show_customer_invoice')->with(compact('customer', 'customers', 'categories', 'brands', 'models','doctors'));
+    }
+
+    public function getCustomerDetails(Request $request)
+    {
+        $customer_id = $request->customer_id;
+        $customer = Customer::where('customer_id', $customer_id)->first();
+
+        return response()->json(['customer' => $customer]);
     }
 }

@@ -36,7 +36,7 @@
         <!-- header logo: style can be found in header.less -->
         @include('dashboard.layouts.header')
         <div class="wrapper row-offcanvas row-offcanvas-left">
-            
+
             @include('dashboard.layouts.sidebar')
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">
@@ -82,10 +82,10 @@
 
         <!-- AdminLTE App -->
         <script src="{{asset('assets/js/AdminLTE/app.js')}}" type="text/javascript"></script>
-        
+
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="{{asset('assets/js/AdminLTE/dashboard.js')}}" type="text/javascript"></script>    
-        
+        <script src="{{asset('assets/js/AdminLTE/dashboard.js')}}" type="text/javascript"></script>
+
         <!-- NOTY -->
         <script src="{{asset('assets/js/noty.min.js')}}" type="text/javascript"></script>
 
@@ -112,7 +112,7 @@
                     ]
 
                 }).show();
-                
+
                 let aquiringMessage = document.querySelector('.noty_layout');
                 aquiringMessage.classList.add('alert', 'alert-danger');
                 aquiringMessage.style.padding = '10px';
@@ -121,14 +121,14 @@
 
             // Preview Image
             $(".image").change(function() {
-                
+
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
-                    
+
                     reader.onload = function(e) {
                         $('.imag-preview').attr('src', e.target.result);
                     }
-                    
+
                     reader.readAsDataURL(this.files[0]); // convert to base64 string
                 }
             });

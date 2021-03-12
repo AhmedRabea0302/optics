@@ -696,7 +696,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-flag"></i></span>
                             <input type="text" class="form-control" name="office_number"
-                                   value="{!! $customer->office_number !!}">
+                                   value="{{ $customer->office_number }}">
                         </div>
                     </div>
                 </div>
@@ -704,7 +704,7 @@
         </div>
 
         <div class="box-footer">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Update Customer</button>
+            <button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Update Customer</button>
         </div>
     </div>
     </form>

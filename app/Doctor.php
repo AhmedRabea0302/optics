@@ -1,12 +1,14 @@
 <?php
 
+
 namespace App;
+
 
 use Illuminate\Database\Eloquent\Model;
 
-class Branch extends Model
+class Doctor extends Model
 {
-    protected $table = 'branches';
+    protected $table = 'doctors';
 
     protected $guarded = ['id'];
 

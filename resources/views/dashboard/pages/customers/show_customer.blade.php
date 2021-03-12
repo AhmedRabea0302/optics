@@ -717,7 +717,7 @@
             </div>
             <div class="col-md-2">
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary update_customer"><i class="fa fa-plus"></i>Update
+                    <button type="submit" class="btn btn-primary update_customer"><i class="fa fa-pencil"></i> Update
                         Customer
                     </button>
                 </div>
