@@ -1,8 +1,8 @@
 <!-- header logo: style can be found in header.less -->
 <header class="header">
-            <a href="{{route('dashboard.index')}}" class="logo">
+            <a href="{{route('dashboard.index')}}" class="logo" style="margin-bottom: 20px">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                OpticsLTE
+                <img src="{{asset('assets/img/modern.png')}}" width="190px" height="105px" alt="">
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">

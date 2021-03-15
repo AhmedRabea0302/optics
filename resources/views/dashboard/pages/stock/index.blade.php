@@ -1,139 +1,6 @@
 @extends('dashboard.layouts.master')
 @section('content')
 
-    <style>
-        .bordered-inputs {
-            border: 1px solid #3c8dbc;
-            box-shadow: 0 -1px 4px 1px #3c8dbc;
-        }
-
-        .item-table {
-            opacity: 0;
-        }
-
-        .modal.in .modal-dialog {
-            width: 85%;
-        }
-
-        .modal .modal-header {
-            color: #fff;
-            background: #032524
-        }
-
-        .modal .modal-header button {
-            background: #8bc340;
-            background: #8bc340;
-            padding: 1px 6px;
-            border-radius: 5px;
-            opacity: 0.75;
-            transition: ease-in-out all 0.3s;
-        }
-
-        .modal .modal-body {
-            padding: 15px 15px;
-        }
-
-        .modal .modal-footer {
-            margin-top: 0
-        }
-
-        .panel {
-            min-height: 350px;
-        }
-
-        .panel .panel-heading {
-            text-align: center;
-        }
-
-        .panel.left .panel-heading {
-            background-color: #3c8dbc;
-            font-size: 16px
-        }
-
-        .panel.right .panel-heading {
-            color: #fff;
-        }
-
-        .panel.right .panel-body table thead {
-            background-color: #032524;
-            color: #fff;
-            border: 1px solid #032524;
-        }
-
-        .panel.right .panel-body table thead tr th {
-            border: none;
-            text-align: center
-        }
-
-        .panel.right .panel-body table tbody tr td {
-            text-align: center;
-            justify-content: center;
-            padding: 5px 15px;
-        }
-
-        .panel.left .form-group {
-            display: flex;
-            align-items: center;
-        }
-
-        .panel.left .form-group label { 
-            text-align: center;
-            margin-right: 10px;
-            width: 60px;
-            display: inline-table;
-            color: #428e4d;
-            background: #f2f1f1;
-            padding: 2px 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            font-style: italic;
-            box-shadow: 0 1px 1px 2px #428e4d;
-        }
-
-        .panel.left .form-group .form-control {
-            border: 2px solid #3c8dbc;
-        }
-
-        .panel.left .btn.btn-danger {
-            margin-left: 5px;
-        }
-
-        .panel.left .btn.btn-success {
-            margin-left: 10px
-        }
-
-        .panel.left .filters-container .btn.btn-danger {
-            background: none;
-            color: #f4543c;
-            border: none;
-        }
-
-        .panel.left .filters-container .btn.btn-success {
-            background: none;
-            color: #032524;
-            border: none;
-            transition: all ease-in-out 0.3s;
-        }
-
-        .panel.left .filters-container .btn.btn-success:focus {
-            box-shadow: none;
-            transform: scale(1.2);
-        }
-
-        .panel.right .panel-heading {
-            background-color: #032524;
-            font-size: 16px
-        }
-
-        .panel.right .panel-body table tbody tr td a.translate {
-            float: left;
-            font-size: 22px;
-            color: #4fa75b;
-            cursor: pointer;
-        }
-
-    </style>
     <section class="content-header">
         <h1>
             Dashboard
@@ -343,8 +210,9 @@
 
 
 
-    <script src="{{asset('assets/js/jquery-2.0.2.min.js')}}" type="text/javascript"></script>
-    <script>
+    <script src="{{ asset('assets/js/jquery-2.0.2.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        
         $(document).ready(function () {
 
             // Search Item with ID
@@ -406,7 +274,7 @@
                 }
 
             });
-            
+
             // On Changing Category Select Box
             let categorySelector = document.querySelector('#category_id');
             $(categorySelector).on('change', function(e) {
@@ -604,7 +472,8 @@
             })
         });
 
-        
-   </script>
+    
+
+    </script>
 
 @stop

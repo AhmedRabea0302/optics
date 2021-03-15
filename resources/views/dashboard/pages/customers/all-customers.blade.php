@@ -82,7 +82,7 @@
                                         @endif
 
                                         <a href="{{route('dashboard.show-customer-invoice', $customer->id)}}"
-                                           class="btn btn-info btn-sm  btn-flat"><i class="fa fa-pencil"></i> create invoice</a>
+                                           class="btn btn-info btn-sm  btn-flat" style="margin-left: 15px"><i class="fa fa-file"></i> create invoice</a>
 
                                         @if(auth()->user()->hasPermission('delete_users'))
                                             <form action="{{route('dashboard.delete-customer', $customer->id)}}"

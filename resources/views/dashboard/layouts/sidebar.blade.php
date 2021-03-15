@@ -3,7 +3,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        <div class="user-panel">
+        {{-- <div class="user-panel" style="margin-top: 30px">
             <div class="pull-left image">
                 <img src="{{asset('assets/img/avatar3.png')}}" class="img-circle" alt="User Image" />
             </div>
@@ -12,19 +12,11 @@
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
-        </div>
-        <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                <span class="input-group-btn">
-                    <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                </span>
-            </div>
-        </form>
+        </div> --}}
+        
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
+        <ul class="sidebar-menu" style="margin-top: 50px">
             <li class="{{ Request::route()->getName() ==  'dashboard.index' ? 'active' : '' }}">
                 <a href="{{route('dashboard.index')}}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -39,7 +31,6 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('dashboard.get-all-customers')}}"><i class="fa fa-angle-double-right"></i> Customers List</a></li>
-                    <li><a href="{{route('dashboard.get-all-doctors')}}"><i class="fa fa-angle-double-right"></i> Doctors List</a></li>
                 </ul>
             </li>
 
@@ -72,6 +63,12 @@
             <li class="{{ Request::route()->getName() == 'dashboard.get-all-branches' ? 'active' : '' }}">
                 <a href="{{route('dashboard.get-all-branches')}}">
                     <i class="fa fa-sitemap"></i> <span>Branches</span>
+                </a>
+            </li>
+
+            <li class="{{ Request::route()->getName() == 'dashboard.get-all-doctors' ? 'active' : '' }}">
+                <a href="{{route('dashboard.get-all-doctors')}}">
+                    <i class="fa fa-user-md"></i> <span>Doctors</span>
                 </a>
             </li>
 

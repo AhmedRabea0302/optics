@@ -23,7 +23,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="customer_id">ID</label>
-                                <input type="text" class="form-control" name="customer_id"
+                                <input type="text" class="form-control" disabled name="customer_id"
                                        value="{{$customer->customer_id}}" id="customer_id">
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label for="customer_name">Name</label>
                                 <input type="text" class="form-control" name="customer_name"
-                                       value="{{$customer->english_name.' / '.$customer->local_name}}"
+                                       value="{{$customer->english_name}}"
                                        id="customer_name">
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="doctor_id">ID</label>
-                                <input type="text" class="form-control" name="doctor_id" value="" id="doctor_id">
+                                <input type="text" class="form-control" disabled name="doctor_id" value="" id="doctor_id">
                             </div>
                         </div>
 
@@ -146,7 +146,8 @@
             </div>
         </div>
     </div>
-    <!-- Add Modal -->
+
+    <!-- Customers Modal -->
     <div id="customerModal" class="modal fade" role="dialog">
         <div class="modal-dialog box-item">
             <!-- Modal content-->
@@ -181,7 +182,7 @@
 
                                             </td>
                                             <td>
-                                                {{$item->english_name.' / '.$item->local_name}}
+                                                {{$item->english_name}}
                                             </td>
                                             </tbody>
                                         @endforeach
@@ -357,7 +358,7 @@
                     <div class="row">
                         <div class="panel-table">
                             <div class="col-md-12">
-                                <table class="table table-bordered table-hover" style="opacity: 0">
+                                <table class="table table-bordered table-hover" style="disblay: none">
                                     <thead>
                                     <tr>
                                         <th>NO.</th>
@@ -382,8 +383,7 @@
                             </div>
 
                             <div>
-                                <h3 class="text-center no-items" style="display: none">No Items
-                                    Found!</h3>
+                                <h3 class="text-center no-items" style="display: none">No Items Found!</h3>
                             </div>
                         </div>
                     </div>
@@ -498,7 +498,7 @@
                 $('.filter-models').on('click', function (e) {
                     e.preventDefault();
                     let model_value = document.querySelector('#model_input').value;
-                    console.log('HHHH');
+
                     // Get all Models Under The Choosed Brand
 
                     category_ID = document.querySelector('#category_id').value;
@@ -564,7 +564,7 @@
             });
 
             // Full Search
-            $('.full-search').on('click', function (e) {
+            $('.full-search').on('click', function(e) {
                 let category_id = document.querySelector('#category_id').value;
                 let brand_input_id = document.querySelector('#brand_input').getAttribute('data-id');
                 let model_input_id = document.querySelector('#model_input').getAttribute('data-id');
@@ -577,44 +577,38 @@
                     },
                     type: "POST",
                     url: '{{route("dashboard.full-search")}}',
-                    data: {
+                    data: { 
                         category_id: category_id,
                         brand_id: brand_input_id,
                         model_id: model_input_id,
                         color: color,
-                        size: size
+                        size: size 
                     },
-                    success: function (response) {
+                    success: function(response) {
                         console.log(response);
                         if (response.length == 0) {
                             let table = document.querySelector('.panel-table');
                             table.querySelector('.no-items').style.display = 'block';
+                            table.querySelector('table').style.display = 'none';
+
                         } else {
-                            let table = document.querySelector('.panel-table table');
-                            table.querySelector('tbody').innerHTML = '';
+                            let table = document.querySelector('.panel-table');
+                            table.querySelector('table tbody').innerHTML = '';
                             table.style.opacity = '1';
                             // set table TDs
                             response.forEach((resp, index) => {
                                 let row = document.createElement('tr');
                                 row.innerHTML = `
-                                    <td><button name="productId" id="productId" style="height: 15px;"
-                                                        value="${resp.product_id}"></button>
-                                 ${index + 1}</td>
-                                    <td>${resp.product_id}</td>
-                                    <td>${resp.describtion}</td>
-                                    <td>${resp.amount}</td>
-                                    <td>${resp.price}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>${resp.price}</td>
-                                    <td>${resp.price}</td>
-                                    <td>${resp.total}</td>
-                                    <td></td>
+                                    <td>${index + 1}</td>
                                     <td>${resp.branch_name['branch_name']}</td>
+                                    <td>${resp.describtion}</td>
+                                    <td>${resp.total}</td>
+                                    <td>${resp.amount}</td>
                                 `
-                                table.querySelector('tbody').appendChild(row);
+                                table.querySelector('table tbody').appendChild(row);
                             });
-
+                            table.querySelector('table').style.display = 'inline-table';
+                            table.querySelector('.no-items').style.display = 'none';
                         }
                     }
                 });
